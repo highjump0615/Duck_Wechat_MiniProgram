@@ -1,0 +1,47 @@
+<!--beforeOrder.wxml-->
+<view class="beforeOrder">
+  <view class="section swiper-area">
+      <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+          <block wx:for="{{swiper.images}}" wx:for-item="image">
+              <swiper-item>
+                  <image class="swiper-img" src="../../images/commodity-detail.png"></image>
+              </swiper-item>
+          </block>
+      </swiper>
+  </view>
+  <view class="product-item">
+    <view class="product-image">
+      <image src="../../images/commodity.png"></image>
+    </view>
+    <view class="product-info">
+      <view class="product-description">
+        奶油味夏威夷果 奶油口味特产干货干果 坚果零食小吃袋装
+      </view>
+      <view class="product-price">
+          <text class="price1">
+            ¥69.00
+            
+          </text>
+          <text class="go-detail" bindtap="detailClick">详情 ></text>
+          <text class="price2">
+            拼团价: ¥59.00
+          </text>
+      </view>
+    </view>
+  </view>
+  <view class="product-specifi">
+      <button class="specifibutton">规格</button>
+      <button class="specifibutton">规格</button>
+      <button class="specifibutton">规格</button>  
+      <button class="specifibutton">规格</button>
+  </view>
+  <view class="purchase-number">
+    <text class="purchasenumber">购买数量</text>
+    <button class="decreaseBtn" bindtap="decBtn">-</button>  
+    <text class="product-num">{{productNum}}</text>
+    <button class="increaseBtn" bindtap="incBtn">+</button>
+  </view>
+  <view class="nextOrder">
+    <button class="nextOrderBtn">下一步</button>
+  </view>
+</view>

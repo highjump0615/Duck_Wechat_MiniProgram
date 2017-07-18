@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<import src="../templates/homeProduct.wxml" />
+<view class="index">
+  <view class="section logo-area">
+    <image id="logo-img" src="../../images/logo.png"></image>
+  </view>
+  <view class="section swiper-area">
+    <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+      <block wx:for="{{swiperImages}}" wx:for-item="image">
+        <swiper-item>
+          <image class="swiper-img" src="{{image.image_url}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="section button-area">
+    <scroll-view class="scroll-view_H" scroll-x="true" scroll-with-animation="true">
+      <block wx:for="{{buttons}}" wx:for-item="button">
+        <view class="scroll-view-item_H">
+          <button class="scroll-button" data-id="{{button.id}}" bindtap="clickCategory">{{button.name}}</button>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="section product-area">
+    <block wx:for="{{products}}" wx:for-item="product">
+      <template is="homeProduct" data="{{...product}}"></template>
+    </block>
+  </view>
+</view>

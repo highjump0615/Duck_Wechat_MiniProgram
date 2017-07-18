@@ -1,0 +1,150 @@
+<!--pages/productDetail/productDetail.wxml-->
+<import src="../templates/wechatUser.wxml" />
+<import src="../../lib/wxParse/wxParse.wxml"/>
+
+<view class="productDetail">
+  <view class="section swiper-area">
+    <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+      <block wx:for="{{swiperImages}}" wx:for-item="beforeImage">
+        <swiper-item>
+          <image class="swiper-img" src="{{beforeImage}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="commodity-area">
+    <view class="commodity-info">
+      <view class="description">
+        {{productDetails.name}}
+      </view>
+      <view class="prices">
+        <text class="price1">¥{{productDetails.price}}</text>
+        <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="info-area">
+    <view class="item">
+      <text class="left">快递运费:
+        <text style="color: #db5078; font-weight:600;">¥{{productDetails.price_deliver}}</text>
+      </text>
+      <text class="right" style="min-width:60px;">库存: </text>
+    </view>
+    <view class="item" style="color: #bbb;">
+      <text class="left">七天包退, 十四天包换</text>
+      <view class="right" bindtap="modalRetreat">
+        <image class="question" src="../../images/question.png"></image>
+      </view>
+    </view>
+  </view>
+  <view class="group-area">
+    <view class="info-area">
+      <view class="item" style="border: none;">
+        <text class="left">火热拼团</text>
+        <view class="right" bindtap="modalFire">
+          <image class="question" src="../../images/question.png"></image>
+        </view>
+      </view>
+      <view class="item">
+        <view class="left">
+          <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+        </view>
+        <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
+      </view>
+    </view>
+    <view class="user-area">
+      <block wx:for="{{users}}" wx:for-item="user">
+        <template is="wechatUser" data="{{...user}}"></template>
+      </block>
+    </view>
+  </view>
+
+  <!-- 详细内容 -->
+  <view class="detail-area">
+    <view class="title">
+      <view class="content">商品详情</view>
+    </view>
+    <!-- html显示 -->
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>
+
+<view class="button-area">
+  <view class="sub-button">
+    <button class="button appbutton1" bindtap="goBuyNow">
+      立即购买
+    </button>
+  </view>
+  <view class="sub-button">
+    <button class="button appbutton2" bindtap="goGroupBuy">
+      发起拼团
+    </button>
+  </view>
+</view>
+
+<!--Prepare modals-->
+<modal title="七天包退, 十四天包换" class="modal" hidden="{{modalRetreatHidden}}" no-cancel bindconfirm="modalRetreatChange" bindcancel="modalRetreatChange">
+  <view> {{noticeRefund}} </view>
+</modal>
+<modal title="火热拼团" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
+  <view> {{noticeGroup}} </view>
+</modal>
+<!--Prepare actionsheet-->
+<action-sheet hidden="{{actionSheetHidden}}">
+  <view class="commoditySheet">
+    <view class="close" bindtap="actionSheetChange">×</view>
+    <view class="product-item">
+      <view class="product-image">
+        <image src="../../images/commodity-detail.png"></image>
+      </view>
+      <view class="product-info">
+        <view class="product-description">
+          {{productDetails.name}}
+        </view>
+        <view class="price">
+          <text class="price1">¥{{productDetails.price}}</text>
+          <view class="groupBuying" hidden="{{groupBuyingHidden}}">
+            拼团
+          </view>
+        </view>
+        <view class="remain">
+          库存
+          <text style="color:#333">{{productDetails.remain}}</text>件
+        </view>
+      </view>
+    </view>
+    <view class="buttons">
+      <button class="button appbutton2">
+        规格
+      </button>
+      <button class="button appbutton2">
+        规格
+      </button>
+      <button class="button appbutton2">
+        规格
+      </button>
+      <button class="button appbutton2">
+        规格
+      </button>
+    </view>
+    <view class="control">
+      <view class="left">
+        购买数量
+      </view>
+      <view class="right">
+        <button class="button appbutton2" bindtap="decreaseCount">
+          -
+        </button>
+        <button class="button appbutton2">
+          {{commodityCount}}
+        </button>
+        <button class="button appbutton2" bindtap="increaseCount">
+          +
+        </button>
+      </view>
+    </view>
+    <button class="button appbutton2 large" bindtap="goPending">
+      下一步
+    </button>
+  </view>
+</action-sheet>

@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/productDetail/productDetail",
+    "pages/user/user",
+    "pages/storeOrder/storeOrder",
+    "pages/deliveryOrder/deliveryOrder",
+    "pages/userGroup/userGroup",
+    "pages/pendingOrder/pendingOrder",
+    "pages/editUserAddress/editUserAddress",
+    "pages/editStoreAddress/editStoreAddress",
+    "pages/receivedOrder/receivedOrder",
+    "pages/deliveredOrder/deliveredOrder",
+    "pages/waitingOrder/waitingOrder",
+    "pages/retreatOrder/retreatOrder",
+    "pages/map/map"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eeeeee"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icon-home-off.png",
+        "selectedIconPath": "images/icon-home-on.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
+        "iconPath": "images/icon-user-off.png",
+        "selectedIconPath": "images/icon-user-on.png"
+      }
+    ]
+  }
+}

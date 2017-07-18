@@ -1,0 +1,4 @@
+/* pages/userGroup/userGroup.wxss */
+.count-area {
+  border-top: 1px solid #eee;
+}

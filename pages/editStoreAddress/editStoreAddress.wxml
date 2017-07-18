@@ -1,0 +1,43 @@
+<!--pages/editStoreAddress/editStoreAddress.wxml-->
+<view class="storeAddress">
+  <view class="list-area">
+    <view class="item">
+      姓名: 王小萌
+    </view>
+    <view class="item">
+      联系电话: 13041096933
+    </view>
+  </view>
+  <view class="select-area">
+    <scroll-view scroll-y style="height: 360px;">
+      <radio-group class="group" bindchange="radioChange">
+        <view class="radio-item" wx:for="{{storeItems}}" wx:for-item="store">
+          <radio id="{{store.id}}" hidden value="{{store.id}}" checked="{{store.checked}}"></radio>
+          <view class="radio-icon">
+            <view class="radio-icon-checked" style="opacity:{{store.checked ? 1: 0}}"></view>
+          </view>
+          <label class="radio-text" for="{{store.id}}">
+            <view class="left">
+              <view class="name">{{store.name}}</view>
+              <view class="address">门店地址: {{store.address}}</view>
+              <view class="phone">联系电话: {{store.phone}}</view>
+            </view>
+            <view class="right">
+              <view class="distance">距您 {{store.distance}}M</view>
+              <view class="marker"><image src="../../images/marker.png"></image></view>
+            </view>
+          </label>
+        </view>
+      </radio-group>
+    </scroll-view>
+  </view>
+  <view class="button-area">
+    <button class="button appbutton5" bindtap="saveAction">
+        保存
+    </button>
+    <button class="button appbutton5" bindtap="cancelAction">
+        取消
+    </button>
+  </view>
+</view>
+

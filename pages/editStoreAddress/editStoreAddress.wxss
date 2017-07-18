@@ -1,0 +1,92 @@
+/* pages/editStoreAddress/editStoreAddress.wxss */
+
+.list-area .item {
+  padding: 15px 25px;
+  border-top: 1px solid #eee;
+  font-size: 15px;
+  color: #333;
+}
+
+.radio-icon {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  background: #fcfff4;
+  border-radius: 50px;
+}
+
+.radio-icon-checked {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 12px;
+  height: 12px;
+  background: #1aad19;
+  border-radius: 50%;
+}
+
+.radio-item {
+  background-color: #eef5ed;
+  padding: 6px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.select-area {
+  font-size: 14px;
+}
+
+.radio-text {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 50px);
+}
+
+.radio-text .name {
+  padding: 8px 10px 5px 10px;
+  font-size: 16px;
+}
+
+.radio-text .address {
+  padding: 1px 10px;
+}
+
+.radio-text .phone {
+  padding: 1px 10px;
+}
+
+.radio-text image {
+  width: 20px;
+  height: 20px;
+}
+
+.radio-text .distance {
+  margin: 12px 0px 8px 0px;
+}
+
+.radio-text .marker {
+  text-align: center;
+}
+
+button.appbutton5 {
+  background: linear-gradient(#129a3a, #0f7d32);
+  border-radius: 20px;
+  border: none;
+  color: white;
+  font-size: 19px;
+  white-space: nowrap;
+  text-shadow: 0px 2px 1px #056723;
+  box-shadow: 0px 3px 1px #0c6e27;
+  width: 90%;
+  line-height: 20px;
+  margin: 40px auto;
+}
+
+button.appbutton5:hover {
+  background: linear-gradient(#42a35a, #3c9f54);
+  border-radius: 20px;
+  border: none;
+  color: white;
+}

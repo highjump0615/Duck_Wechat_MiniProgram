@@ -1,0 +1,113 @@
+<!--pages/userGroup/userGroup.wxml-->
+<!--pages/userDelivery/userDelivery.wxml-->
+<view class="store-item">
+  <view class="index-area">
+    <view class="left">
+      订单号: 176498882371
+    </view>
+    <view class="right" style="color:#e54142">
+      拼团中
+    </view>
+  </view>
+  <view class="commodity-item">
+    <view class="commodity-image">
+      <image src="../../images/commodity-1.png"></image>
+    </view>
+    <view class="commodity-info">
+      <view class="commodity-description">
+        奶油味夏威夷果 奶油口味特产干货干果 坚果零食小吃袋装
+      </view>
+      <view class="price">
+        <view class="left">×1</view>
+        <view class="right">¥69.00</view>
+      </view>
+      <view class="remain">
+        <view class="left">
+          <button class="button appbutton3">50G</button>
+        </view>
+        <view class="right">
+          <button class="button appbutton2">拼团</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="detail-area">
+    <view class="price-area">
+      <view class="left">
+        <view class="total">合计:
+          <text>¥69.00</text>(运费¥0)</view>
+        <view class="time">下单时间: 2017年9点50分</view>
+        <view class="store">门店自提: 北工大门店</view>
+      </view>
+      <view class="right">
+        <view class="left">
+          <button class="button appbutton4">详情</button>
+        </view>
+      </view>
+    </view>
+    <view class="count-area">
+      <view class="left">
+        人数: 1
+      </view>
+      <view class="right">
+        倒计时: 19:56
+      </view>
+    </view>
+  </view>
+</view>
+<view class="store-item">
+  <view class="index-area">
+    <view class="left">
+      订单号: 1764988823889
+    </view>
+    <view class="right" style="color:#e54142">
+      待发货
+    </view>
+  </view>
+  <view class="commodity-item">
+    <view class="commodity-image">
+      <image src="../../images/commodity-1.png"></image>
+    </view>
+    <view class="commodity-info">
+      <view class="commodity-description">
+        奶油味夏威夷果 奶油口味特产干货干果 坚果零食小吃袋装
+      </view>
+      <view class="price">
+        <view class="left">×1</view>
+        <view class="right">¥69.00</view>
+      </view>
+      <view class="remain">
+        <view class="left">
+          <button class="button appbutton3">50G</button>
+        </view>
+        <view class="right">
+          <button class="button appbutton2">拼团</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="detail-area">
+    <view class="price-area">
+      <view class="left">
+        <view class="total">合计:
+          <text>¥69.00</text>
+        </view>
+        <view class="time">下单时间: 2017年9点50分</view>
+        <view class="store">快递配送</view>
+      </view>
+      <view class="right">
+        <view class="left">
+          <button class="button appbutton4">详情</button>
+        </view>
+      </view>
+    </view>
+    <view class="count-area">
+      <view class="left">
+        人数: 3
+      </view>
+      <view class="right">
+        己结束: 拼团成功
+      </view>
+    </view>
+  </view>
+</view>

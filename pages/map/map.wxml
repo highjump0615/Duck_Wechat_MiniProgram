@@ -1,0 +1,14 @@
+<!--pages/map/map.wxml-->
+<view class="map">
+  <map id="map" longitude="{{pointLongitude}}" latitude="{{pointLatitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location></map>
+  <view class="navigation">
+    <view class="detail">
+      <view>北工大门店</view>
+      <view>地址 朝阳区平乐园100号</view>
+    </view>
+    <button class="button appbutton2" bindtap="navigation">
+        导航
+    </button>
+  </view>
+</view>
+

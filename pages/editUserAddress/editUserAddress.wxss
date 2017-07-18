@@ -1,0 +1,67 @@
+/* pages/editUserAddress/editUserAddress.wxss */
+
+.userAddress {
+  min-height: 100vh;
+  background-color: #eee;
+  padding-top: 20px;
+}
+
+.list-area {
+  background-color: #fff;
+  padding: 0px 10px;
+  font-size: 15px;
+  color: #555;
+}
+
+.list-area .item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0px;
+}
+
+.list-area .item input {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  color: #555;
+}
+
+.button-area {
+  padding-top: 20px;
+}
+
+button.appbutton5 {
+  background: linear-gradient(#129a3a, #0f7d32);
+  border-radius: 20px;
+  border: none;
+  color: white;
+  font-size: 19px;
+  white-space: nowrap;
+  text-shadow: 0px 2px 1px #056723;
+  box-shadow: 0px 3px 1px #0c6e27;
+  width: 90%;
+  line-height: 20px;
+  margin: 40px auto;
+}
+
+button.appbutton5:hover {
+  background: linear-gradient(#42a35a, #3c9f54);
+  border-radius: 20px;
+  border: none;
+  color: white;
+}
+.marker image{
+  width: 20px;
+  height: 20px;
+}
+.content {
+  font-size: 12px;
+  color: #db5078;
+}
+.position {
+  text-align:center;
+  margin-right:15px;
+  border-left:1px solid #eee;
+  padding-left:10px;
+  margin-top:-5px;
+}

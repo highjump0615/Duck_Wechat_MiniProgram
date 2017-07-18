@@ -1,0 +1,34 @@
+<!--pages/user/user.wxml-->
+<view class="user">
+  <image class="header-img" src="../../images/tabuser.png"></image>
+  <view class="profile-area">
+    <image class="profile-img" src="{{myImage}}"></image>
+    <view class="profile-name">{{myName}}</view>
+  </view>
+  <view id="store" class="list-item" bindtap="goStorePage">
+    <image class="list-img" src="../../images/store.png"></image>
+    <text class="list-name">门店自提订单</text>
+    <text class="arrow">></text>
+  </view>
+  <view id="delivery" class="list-item" bindtap="goDeliveryPage">
+    <image class="list-img" src="../../images/delivery.png"></image>
+    <text class="list-name">快递配送订单</text>
+    <text class="arrow">></text>
+  </view>
+  <view id="we" class="list-item" bindtap="goWePage">
+    <image class="list-img" src="../../images/we.png"></image>
+    <text class="list-name">我的拼团</text>
+    <text class="arrow">></text>
+  </view>
+  <view id="address" class="list-item" bindtap="goAddressPage">
+    <image class="list-img" src="../../images/address.png"></image>
+    <text class="list-name">管理收货地址</text>
+    <text class="arrow">></text>
+  </view>
+  <view id="customer" class="list-item" bindtap="goCustomerPage">
+    <image class="list-img" src="../../images/customer.png"></image>
+    <text class="list-name">客服电话</text>
+    <text class="arrow">
+      <text class="phone">{{phone}} </text>></text>
+  </view>
+</view>

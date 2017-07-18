@@ -1,0 +1,79 @@
+<!--pages/waitingOrder/waitingOrder.wxml-->
+<view class="pending-item deliveredOrder">
+  <view class="commodity-item">
+    <view class="commodity-image">
+      <image src="../../images/commodity-1.png"></image>
+    </view>
+    <view class="commodity-info">
+      <view class="commodity-description">
+        奶油味夏威夷果 奶油口味特产干货干果 坚果零食小吃袋装
+      </view>
+      <view class="price">
+        <view class="left">×1</view>
+        <view class="right">¥69.00</view>
+      </view>
+      <view class="remain">
+        <view class="left">
+          <button class="button appbutton3">50G</button>
+        </view>
+        <view class="right">
+          <button class="button appbutton2">拼团</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="mode-area">
+    <view class="left">
+      配送方式
+    </view>
+    <view class="right">
+      门店自提
+    </view>
+  </view>
+  <view class="address-area">
+    <view class="left">
+      <view class="name">
+        <text>王小萌</text>
+        <text style="margin-left: 10px">15126489546</text>
+      </view>
+      <view class="address">北工大门店 13031198966</view>
+      <view class="store">门店地址 北京工业大学东门</view>
+    </view>
+    <view class="right">
+      <button class="button appbutton6" bindtap="goDial">电话</button>
+      <button class="button appbutton6" bindtap="goMap">地图</button>
+    </view>
+  </view>
+  <view class="detail-area">
+    <view class="item">
+      <view class="left">
+        买家留言
+      </view>
+      <view class="right">
+      
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+        商品金额
+      </view>
+      <view class="right">
+        <text style="color:#db5078">¥69.00</text>
+      </view>
+    </view>
+    <view class="item" style="border:none;">
+      <view class="left">
+        参与人数: 1
+      </view>
+      <view class="right">
+        倒计时: 19:56
+      </view>
+    </view>
+  </view>
+  <view class="button-area">
+    <view class="total">状态为: 拼团中</view>
+    <button class="button appbutton2" bindtap="confirmWait">
+        请等待
+    </button>
+  </view>
+</view>

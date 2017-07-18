@@ -1,0 +1,25 @@
+/* pages/retreatOrder/retreatOrder.wxss */
+.pending-item.deliveredOrder .mode-area .left {
+  font-weight:normal;
+  margin-top:0px;
+}
+.pending-item.deliveredOrder .detail-area .item{
+  padding: 10px 20px;
+}
+.pending-item.deliveredOrder .button-area {
+  margin-top:20px;
+  padding:10px 10px 10px 10px;
+  border: none;
+}
+.pending-item.deliveredOrder .total{
+  color: #000;
+}
+button.appbutton6 {
+  line-height: 20px;
+  padding: 0px 10px;
+  margin-bottom: 5px;
+  background-color: #cbe198;
+}
+.address-area .right {
+  margin-top: 20px;
+}

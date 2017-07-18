@@ -1,0 +1,21 @@
+/* pages/receivedOrder/receivedOrder.wxss */
+.pending-item.receivedOrder .mode-area .left {
+  font-weight:normal;
+  margin-top:0px;
+}
+.pending-item.receivedOrder .detail-area .item{
+  padding: 10px 20px;
+}
+.pending-item.receivedOrder .button-area {
+  margin-top:20px;
+  padding:10px 10px 10px 10px;
+  border: none;
+}
+.pending-item.receivedOrder .total{
+  color: #000;
+}
+.groupBuying {
+  display: block;
+  line-height: 22px;
+} 
+

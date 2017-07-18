@@ -1,0 +1,359 @@
+/**app.wxss**/
+.left {
+  display: inline-block;
+}
+
+.right {
+  display: inline-block;
+  float: right;
+}
+
+.list-item {
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  margin-top: -1px;
+  background-color: #fff;
+}
+
+text.price1 {
+  margin-right: 10px;
+  color: #68bc5e;
+}
+
+text.price2 {
+  margin-right: 10px;
+  color: #db5078;
+}
+
+button.appbutton3 {
+  background-color: #fff;
+  font-size: 14px;
+  border: 1px solid #68bc5e;
+  color: #68bc5e;
+  line-height: 30px;
+  margin-top: 5px;
+}
+
+button.appbutton1 {
+  color: #68bc5e;
+  background-color: white;
+}
+
+button.appbutton2 {
+  color: white;
+  background-color: #68bc5e;
+}
+
+.sub-button {
+  display: inline-block;
+  width: 50%;
+}
+
+button.button {
+  border-radius: 0px;
+  font-size: 14px;
+  padding: 10px;
+}
+
+button::after {
+  border-radius: 0px;
+}
+
+button.appbutton1:hover {
+  color: white;
+  background-color: #83d27a;
+}
+
+button.appbutton2:hover {
+  color: white;
+  background-color: #83d27a;
+}
+
+.product-item {
+  border-bottom: 1px solid #eee;
+}
+
+.product-image {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.product-image image {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.product-info {
+  display: inline-block;
+  width: calc(100% - 120px);
+  vertical-align: middle;
+}
+
+.product-description {
+  font-size: 15px;
+  padding: 15px 20px 0px 0px;
+  min-height: 55px;
+}
+
+.product-price text {
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+text.go-detail {
+  color: #68bc5e;
+  position: relative;
+  float: right;
+  margin-top: 17.5px;
+  margin-right: 10px;
+}
+
+.store-item {
+  margin-top: 0px;
+  padding: 10px 0px;
+  border: 1px solid #eee;
+}
+
+.store-item .index-area {
+  font-size: 14px;
+  padding: 0px 15px;
+  margin-bottom: 10px;
+}
+
+.store-item .commodity-item {
+  background-color: #eef5ed;
+  padding: 0px 15px;
+}
+
+.store-item .price {
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.store-item .price .right {
+  color: #e54142;
+  font-weight: 600;
+}
+
+.store-item .commodity-image {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.store-item .commodity-image image {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+}
+
+.store-item .commodity-info {
+  display: inline-block;
+  max-width: calc(100% - 140px);
+  vertical-align: middle;
+}
+
+.store-item .commodity-description {
+  font-size: 14px;
+}
+
+.store-item .remain {
+  margin-top: 15px;
+}
+
+.store-item .remain button.appbutton3 {
+  padding: 0px 10px;
+  background-color: transparent;
+  margin-top: 0px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.store-item .remain button.appbutton2 {
+  padding: 0px 10px;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.store-item .detail-area {
+  font-size: 14px;
+  padding: 10px 15px 0px 15px;
+  color: #aaa;
+}
+
+.store-item .count-area {
+  padding-top: 10px;
+}
+
+.store-item .price-area .total {
+  padding: 5px 0px;
+}
+
+.store-item .price-area .total text {
+  color: #e54142;
+  font-weight: 600;
+}
+
+.store-item .price-area .time {
+  padding: 5px 0px;
+}
+
+.store-item .price-area .store {
+  padding: 5px 0px;
+}
+
+.store-item button.appbutton4 {
+  padding: 0px 10px;
+  background-color: transparent;
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 20px;
+  border: 1px solid #68bc5e;
+}
+
+.pending-item {
+  margin-top: 0px;
+}
+
+.pending-item .commodity-item {
+  border: 1px solid #eee;
+}
+
+.pending-item .price {
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+.pending-item .price .right {
+  color: #e54142;
+  font-weight: 600;
+}
+
+.pending-item .commodity-image {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #eef5ed;
+}
+
+.pending-item .commodity-image image {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+}
+
+.pending-item .commodity-info {
+  display: inline-block;
+  max-width: calc(100% - 140px);
+  vertical-align: middle;
+}
+
+.pending-item .commodity-description {
+  font-size: 14px;
+  padding: 0px 10px;
+}
+
+.pending-item .remain {
+  padding: 8px 10px;
+}
+
+.pending-item .remain button.appbutton3 {
+  padding: 0px 10px;
+  background-color: transparent;
+  margin-top: 0px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.pending-item .remain button.appbutton2 {
+  padding: 0px 10px;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.pending-item .mode-area {
+  font-size: 15px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.pending-item .mode-area .left {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.pending-item button.appbutton4 {
+  background-color: transparent;
+  display: inline-block;
+  padding: 3px 6px;
+}
+
+.pending-item button.appbutton4.active {
+  background-color: #eef5ed;
+  color: #68bc5e;
+}
+
+.pending-item .address-area {
+  font-size: 14px;
+  padding: 30px 20px;
+  background-color: #eef5ed;
+}
+
+.pending-item .name {
+  padding: 5px 0px;
+}
+
+.pending-item .address {
+  padding: 5px 0px;
+  color: #aaa;
+}
+
+.pending-item .store {
+  padding: 5px 0px;
+  color: #aaa;
+}
+
+.pending-item .address-area button.appbutton3 {
+  line-height: 20px;
+  padding: 0px 10px;
+  margin-top: 30px;
+  background: transparent;
+  color: #000;
+}
+
+.pending-item .detail-area {
+  padding:20px 10px;
+  font-size:15px;
+}
+.pending-item .detail-area .item {
+  padding: 10px 0px;
+  border-bottom: 1px solid #eee;
+}
+.pending-item .button-area {
+  text-align: right;
+  margin-top: 50px;
+  padding: 40px 10px 10px 10px;
+  border-top: 1px solid #eee;
+}
+.pending-item .total {
+  display: inline-block;
+  vertical-align: middle;
+  color: #db5078;
+  font-size: 15px;
+  margin-right: 20px;
+}
+.pending-item .button-area button.appbutton2 {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+}
+.groupBuying {
+  line-height:20px;
+  padding:0px 10px;
+  margin-left:5px;
+  display:inline-block;
+  border-radius:2px;
+  font-size:14px;
+  color:white;
+  background-color:#68bc5e;
+}
