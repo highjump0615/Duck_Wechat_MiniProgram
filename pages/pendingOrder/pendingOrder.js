@@ -204,6 +204,8 @@ Page({
     Called when user click 提交订单
   */
   submitOrder: function (e) {
+    var that = this;
+
     // 确认收件人信息
     if (!this.data.receiver) {
       wx.showModal({
@@ -214,8 +216,8 @@ Page({
       return;
     }
 
-    this.makeOrder();
-    return;
+    // this.makeOrder();
+    // return;
 
     // 预支付
     wx.request({
@@ -234,7 +236,7 @@ Page({
 
         if (res.statusCode > 200) {
           // 失败
-          this.showPayemntError();
+          that.showPayemntError();
           return;
         }
 
@@ -246,8 +248,6 @@ Page({
         var nonceStr = response.nonce_str;
         var paySign = md5.hex_md5('appId='+appId+'&nonceStr='+nonceStr+'&package='+pkg+'&signType=MD5&timeStamp='+timeStamp+"&key=5UkDSKPgHQ6cpsUSwxt2lJnixzQkzQeO").toUpperCase();
 
-        console.log(paySign);
-
         wx.requestPayment({
           'appId': appId,
           'timeStamp': timeStamp,
@@ -257,7 +257,7 @@ Page({
           'paySign': paySign,
           'success':function(res){
             // 生成订单
-            makeOrder();
+            that.makeOrder();
           },
           'fail':function(res){
             console.log(res);
@@ -265,7 +265,7 @@ Page({
         });
       },
       fail: function (err) {
-        this.showPayemntError();
+        that.showPayemntError();
       },//请求失败
       complete: function () { }//请求完成后执行的函数
     });
@@ -284,6 +284,8 @@ Page({
    * 生成订单
    */
   makeOrder: function() {
+
+    var that = this;
 
     var paramData = {
       customer_id: app.globalData.userInfo.customerId,
@@ -321,7 +323,7 @@ Page({
       success: function (res) {
         if (res.statusCode > 200) {
           // 失败
-          this.showMakeOrderError();
+          that.showMakeOrderError();
           return;
         }
 
@@ -334,7 +336,7 @@ Page({
         strUrl = '../userGroup/userGroup';
         if (util.prepareOrderInfo.groupBuy < 0) {
           // 门店订单
-          if (this.data.channel == config.channel.self) {
+          if (that.data.channel == config.channel.self) {
             strUrl = '../storeOrder/storeOrder';
           }
           // 快递订单
@@ -349,7 +351,7 @@ Page({
         });
       },
       fail: function (err) {
-        this.showMakeOrderError();
+        that.showMakeOrderError();
       },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
