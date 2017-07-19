@@ -1,28 +1,30 @@
 <!--pages/editUserAddress/editUserAddress.wxml-->
 <view class="userAddress">
   <view class="list-area">
+
     <view class="item">
-      姓名: <input  bindinput="userName" value="{{name}}" placeholder="王小萌"/>
+      姓名: <input  bindinput="userName" value="{{receiver.name}}" placeholder="请输入姓名"/>
     </view>
+
     <view class="item">
-      联系电话: <input type="digit"  bindinput="userPhone" value="{{phone}}" placeholder="13041096933"/>
+      联系电话: <input type="digit"  bindinput="userPhone" value="{{receiver.phone}}" placeholder="请输入联系电话"/>
     </view>
+
     <view class="item">
       <view class="left">
-        收货地区: <input  bindinput="userArea" value="{{area}}" placeholder="北京市 朝阳区"/>
-      </view>
-      <view class="right position" bindtap="goMap">
-        <view class="marker"><image src="../../images/marker.png"></image></view>
-        <view class="content">定位</view>
+        收货地区: <input  bindinput="userArea" value="{{receiver.area}}" placeholder="请输入地区"/>
       </view>
     </view>
+
     <view class="item">
-      详细地址: <input  bindinput="userAddress" value="{{address}}" placeholder="北京工业大学东门"/>
+      详细地址: <input  bindinput="userAddress" value="{{receiver.address}}" placeholder="请输入详细地址"/>
     </view>
+
     <view class="item">
-      邮政编码: <input type="digit"  bindinput="userZipcode" value="{{zipcode}}" placeholder="100124"/>
+      邮政编码: <input type="digit"  bindinput="userZipcode" value="{{receiver.zipcode}}" placeholder="请输入邮政编码"/>
     </view>
   </view>
+
   <view class="button-area">
     <button class="button appbutton5" bindtap="saveAction">
         保存

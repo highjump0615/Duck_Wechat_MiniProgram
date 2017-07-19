@@ -3,6 +3,8 @@ var util = require('../../utils/util.js')
 var config = require('../../config/config.js')
 var md5 = require('../../lib/md5.js')
 
+var app = getApp();
+
 Page({
 
   /**
@@ -19,19 +21,18 @@ Page({
     totalPrice: 0,
     thumbnail: '',
     storeList: [],
-    username: '',
-    phone: '',
-    area: '',
-    address: '',
-    zipcode: '',
+    // 配送渠道
+    channel: config.channel.delivery
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
     this.setData({
-      groupBuyingHidden: !util.groupBuyMode
-    })
+      groupBuyingHidden: !util.groupBuyMode,
+      // 收件人
+      receiver: app.receiver
+    });
   },
   /*
     Called when user click 快递配送
@@ -40,7 +41,8 @@ Page({
     this.setData({
       deliveryActive: 'active',
       storeActive: '',
-      storeHidden: false
+      storeHidden: false,
+      channel: config.channel.delivery
     })
   },
   /*
@@ -50,7 +52,8 @@ Page({
     this.setData({
       deliveryActive: '',
       storeActive: 'active',
-      storeHidden: true
+      storeHidden: true,
+      channel: config.channel.self
     })
   },
   /*
@@ -97,20 +100,29 @@ Page({
 * load function
 */
   onLoad: function () {
-    console.log('onLoad')
+    console.log(util.prepareOrderInfo);
+
     var that = this;
-    // get the categorylist from backend-server
-    //this.getProductbeforImages();
+
+    // 规格
+    var strSpec = '';
+    for (var i = 0; i < util.productDetails.specs.length; i++) {
+      if (util.productDetails.specs[i].id == util.prepareOrderInfo.specId) {
+        strSpec = util.productDetails.specs[i].name;
+        break;
+      }
+    }
+
     this.setData({
       productDetails: util.productDetails,
-      buyCnt: util.buyCnt,
-      priceSum: util.priceSum,  
-      totalPrice: util.totalPrice, 
-      username: util.username,
-      phone: util.phone,
-      area: util.area,
-      address: util.address,
-      zipcode: util.zipcode,
+      buyCnt: util.prepareOrderInfo.count,
+      spec: strSpec,
+
+      // 价格合计
+      priceSum: util.prepareOrderInfo.count * util.productDetails.price,  
+
+      // 价格总计
+      totalPrice: util.prepareOrderInfo.totalPrice
     })
     
     
@@ -120,27 +132,11 @@ Page({
     console.log(util.productDetails);
     console.log('<---');
 
-    //get tumbnail
-    wx.downloadFile({
-      url: that.data.productDetails.thumbnail, //仅为示例，并非真实的资源
-      type: 'image',
-      success: function (res) {
-        that.setData({
-          thumbnail: res.tempFilePath
-        })
-        console.log('pending order thumbbail-->');
-        console.log(that.data.thumbnail);
-        console.log('<--');
-      }
-    });
-
     // get the store list
     var storeUrl = 'https://hly.weifengkeji.top/public/api/v1/stores'
     wx.request({
       url: storeUrl,//请求地址
-      data: {
-
-      },
+      data: {},
       header: {//请求头
         "Content-Type": "applciation/json"
       },
@@ -148,70 +144,117 @@ Page({
       success: function (res) {
         console.log('get store list -->');
         console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
+
+        var stores = res.data.result;
+        // 默认选择第一家门店
+        if (stores.length > 0) {
+          stores[0].checked = true;
+        }
+
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           storeList: res.data.result
-        })
-        
+        })        
       },
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
-
-    
   },
+  
+  /**
+   * 输入内容
+   */
+  // 收件人姓名
+  userName: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  // 手机号
+  userPhone: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
+  },
+  // 买家留言
+  desc: function (e) {
+    this.setData({
+      desc: e.detail.value
+    })
+  },
+  
   /*
     Called when user click 提交订单
   */
   submitOrder: function (e) {
+    // 确认收件人信息
+    if (!this.data.receiver) {
+      wx.showModal({
+        title: '请输入收件人信息',
+        showCancel: false
+      });
+
+      return;
+    }
+
     // 预支付
-      wx.request({
-        url: config.api.baseUrl + '/order/prepare',//请求地址
-        data: {
-          product_id: 1,
-          price: 5.0
-        },
-        header: {//请求头
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method: "POST",//get为默认方法/POST
-        success: function (res) {
-          console.log(res);
+    wx.request({
+      url: config.api.baseUrl + '/order/prepare',//请求地址
+      data: {
+        product_id: util.productDetails.id,
+        customer_id: util.userInfo.customerId,
+        price: util.prepareOrderInfo.totalPrice
+      },
+      header: {//请求头
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST",//get为默认方法/POST
+      success: function (res) {
+        console.log(res);
 
-          var response = res.data.result;
-          // 发起支付
-          var appId = response.appid;
-          var timeStamp = (Date.parse(new Date()) / 1000).toString();
-          var pkg = 'prepay_id=' + response.prepay_id;
-          var nonceStr = response.nonce_str;
-          var paySign = md5.hex_md5('appId='+appId+'&nonceStr='+nonceStr+'&package='+pkg+'&signType=MD5&timeStamp='+timeStamp+"&key=5UkDSKPgHQ6cpsUSwxt2lJnixzQkzQeO").toUpperCase();
-
-          console.log(paySign);
-
-          wx.requestPayment({
-            'appId': appId,
-            'timeStamp': timeStamp,
-            'nonceStr': nonceStr,
-            'package': pkg,
-            'signType': 'MD5',
-            'paySign': paySign,
-            'success':function(res){
-              wx.showToast({
-                title: '支付成功', 
-                icon: 'success'
-              });
-            },
-            'fail':function(res){
-              console.log(res);
-            }
-          });
-        },
-        fail: function (err) {
+        if (res.statusCode > 200) {
+          // 失败
           wx.showToast({
             title: '无法开启支付接口！'
           });
-        },//请求失败
-        complete: function () { }//请求完成后执行的函数
-      })
+
+          return;
+        }
+        
+        var response = res.data.result;
+        // 发起支付
+        var appId = response.appid;
+        var timeStamp = (Date.parse(new Date()) / 1000).toString();
+        var pkg = 'prepay_id=' + response.prepay_id;
+        var nonceStr = response.nonce_str;
+        var paySign = md5.hex_md5('appId='+appId+'&nonceStr='+nonceStr+'&package='+pkg+'&signType=MD5&timeStamp='+timeStamp+"&key=5UkDSKPgHQ6cpsUSwxt2lJnixzQkzQeO").toUpperCase();
+
+        console.log(paySign);
+
+        wx.requestPayment({
+          'appId': appId,
+          'timeStamp': timeStamp,
+          'nonceStr': nonceStr,
+          'package': pkg,
+          'signType': 'MD5',
+          'paySign': paySign,
+          'success':function(res){
+            wx.showToast({
+              title: '支付成功', 
+              icon: 'success'
+            });
+          },
+          'fail':function(res){
+            console.log(res);
+          }
+        });
+      },
+      fail: function (err) {
+        wx.showToast({
+          title: '无法开启支付接口！'
+        });
+      },//请求失败
+      complete: function () { }//请求完成后执行的函数
+    })
 
     // if(this.data.deliveryActive == 'active') {
     //   wx.navigateTo({

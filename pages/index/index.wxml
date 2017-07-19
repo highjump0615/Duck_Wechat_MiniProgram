@@ -1,9 +1,13 @@
 <!--index.wxml-->
 <import src="../templates/homeProduct.wxml" />
 <view class="index">
+
+  <!-- Logo -->
   <view class="section logo-area">
     <image id="logo-img" src="../../images/logo.png"></image>
   </view>
+
+  <!-- 宣传 -->
   <view class="section swiper-area">
     <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
       <block wx:for="{{swiperImages}}" wx:for-item="image">
@@ -13,6 +17,8 @@
       </block>
     </swiper>
   </view>
+
+  <!-- 分类 -->
   <view class="section button-area">
     <scroll-view class="scroll-view_H" scroll-x="true" scroll-with-animation="true">
       <block wx:for="{{buttons}}" wx:for-item="button">
@@ -22,6 +28,8 @@
       </block>
     </scroll-view>
   </view>
+
+  <!-- 商品列表 -->
   <view class="section product-area">
     <block wx:for="{{products}}" wx:for-item="product">
       <template is="homeProduct" data="{{...product}}"></template>

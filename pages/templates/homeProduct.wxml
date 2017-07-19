@@ -1,8 +1,11 @@
 <template name="homeProduct" class="home-product">
   <view class="product-item">
+
+    <!-- 图片 -->
     <view class="product-image">
       <image src="{{thumbnail}}"></image>
     </view>
+    
     <view class="product-info">
       <view class="product-description">
         {{name}}

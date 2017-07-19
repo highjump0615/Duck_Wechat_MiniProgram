@@ -28,7 +28,7 @@
       <text class="left">快递运费:
         <text style="color: #db5078; font-weight:600;">¥{{productDetails.price_deliver}}</text>
       </text>
-      <text class="right" style="min-width:60px;">库存: </text>
+      <text class="right" style="min-width:60px;">库存: <text>{{productDetails.remain}}</text></text>
     </view>
     <view class="item" style="color: #bbb;">
       <text class="left">七天包退, 十四天包换</text>
@@ -89,14 +89,18 @@
 <modal title="火热拼团" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
   <view> {{noticeGroup}} </view>
 </modal>
+
 <!--Prepare actionsheet-->
 <action-sheet hidden="{{actionSheetHidden}}">
   <view class="commoditySheet">
     <view class="close" bindtap="actionSheetChange">×</view>
     <view class="product-item">
+
+      <!-- 图片 -->
       <view class="product-image">
-        <image src="../../images/commodity-detail.png"></image>
+        <image src="{{thumbnail}}"></image>
       </view>
+
       <view class="product-info">
         <view class="product-description">
           {{productDetails.name}}
@@ -114,18 +118,14 @@
       </view>
     </view>
     <view class="buttons">
-      <button class="button appbutton2">
-        规格
-      </button>
-      <button class="button appbutton2">
-        规格
-      </button>
-      <button class="button appbutton2">
-        规格
-      </button>
-      <button class="button appbutton2">
-        规格
-      </button>
+      <block wx:for="{{productDetails.specs}}" wx:for-item="spec">
+          <button wx:if="{{specId == spec.id}}" data-id="{{spec.id}}" class="button appbutton2 selected">
+            {{spec.name}}
+          </button>
+          <button wx:else data-id="{{spec.id}}" class="button appbutton2" bindtap="selectSpec">
+            {{spec.name}}
+          </button>
+      </block>
     </view>
     <view class="control">
       <view class="left">

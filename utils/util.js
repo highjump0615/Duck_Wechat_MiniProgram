@@ -17,23 +17,18 @@ function formatNumber(n) {
 }
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+
+  // 商品详情 -> 待付款
+  prepareOrderInfo: {
+    channel: 0,
+  },
 }
 
 var groupBuyMode = false;
 var productId = 0; //when user click the detail button, store product id.
-var beforeProductImgs = [];
 var userInfo = [];
-var customerId = '';
 var productDetails = [];
-var buyCnt = 0;
-var priceSum = 0;
-var totalPrice = 0;
 
-var usrname = '朝阳区';
-var phone =  '13041096933';
-var area =  '北京市 朝阳区';
-var address = '北京工业大学东门';
-var zipcode = '100124';
 var latitude = 0.0;
 var longtitude = 0.0;

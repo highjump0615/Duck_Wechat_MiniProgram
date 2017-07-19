@@ -1,28 +1,72 @@
 // pages/editUserAddress/editUserAddress.js
 var util = require('../../utils/util.js');
+var app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
-  data: {
-    
-      username: '王小萌',
-      phone: '13041096933',
-      area: '北京市 朝阳区',
-      address: '北京工业大学东门',
-      zipcode: '100124'
-    
+  data: {},
+  showErrorMessage: function(message) {
+    wx.showModal({
+        title: message,
+        showCancel: false
+      });
+  },
+  onLoad: function() {
+    this.setData({
+      receiver: app.receiver
+    });
+
+    if (this.data.receiver) {
+      this.setData({
+        username: this.data.receiver.name,
+        phone: this.data.receiver.phone,
+        area: this.data.receiver.area,
+        address: this.data.receiver.address,
+        zipcode: this.data.receiver.zipcode,
+      })
+    }
   },
   /*
     Called when user click 保存
   */
   saveAction: function(e) {
-    util.username = this.data.username;
-    util.phone = this.data.phone;
-    util.area = this.data.area;
-    util.address = this.data.address;
-    util.zipcode = this.data.zipcode;
+    // 姓名
+    if (!this.data.username) {
+      this.showErrorMessage('请输入收件人姓名');
+      return;
+    }
+    this.data.receiver.name = this.data.username; 
+
+    // 联系电话
+    if (!this.data.phone) {
+      this.showErrorMessage('请输入手机号');
+      return;
+    }
+    this.data.receiver.phone = this.data.phone; 
+
+    // 地区
+    if (!this.data.area) {
+      this.showErrorMessage('请输入地区');
+      return;
+    }
+    this.data.receiver.area = this.data.area; 
+
+    // 地址
+    if (!this.data.address) {
+      this.showErrorMessage('请输入详细地址');
+      return;
+    }
+    this.data.receiver.address = this.data.address; 
+
+    // 邮政编码
+    this.data.receiver.zipcode = this.data.zipcode; 
+
+    // 保存
+    app.receiver = this.data.receiver;
+    wx.setStorageSync('receiver', this.data.receiver)
    
     wx.navigateBack({
       delta: 1
@@ -62,12 +106,4 @@ Page({
       delta: 1
     })
   },
-  /*
-    Called when user click 定位
-  */
-  goMap: function (e) {
-    wx.navigateTo({
-      url: '../map/map'
-    });
-  }
 })

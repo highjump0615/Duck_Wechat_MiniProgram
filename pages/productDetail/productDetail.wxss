@@ -193,3 +193,7 @@ image.question {
   line-height: 50px;
   margin-bottom: -10px;
 }
+
+.appbutton2.selected {
+  background-color: #287c1c !important;
+}

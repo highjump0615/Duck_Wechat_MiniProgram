@@ -357,3 +357,11 @@ text.go-detail {
   color:white;
   background-color:#68bc5e;
 }
+
+.item input {
+  font-size: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  color: #555;
+}

@@ -1,9 +1,12 @@
 <!--pages/pendingOrder/pendingOrder.wxml-->
 <view class="pending-item">
   <view class="commodity-item">
+
+    <!-- 商品图片 -->
     <view class="commodity-image">
-      <image src="{{thumbnail}}"></image>
+      <image src="{{productDetails.thumbnail}}"></image>
     </view>
+
     <view class="commodity-info">
       <view class="commodity-description">
         {{productDetails.name}}
@@ -14,7 +17,7 @@
       </view>
       <view class="remain">
         <view class="left">
-          <button class="button appbutton3">50G</button>
+          <button class="button appbutton3">{{spec}}</button>
         </view>
         <view class="right">
           <view class="groupBuying" hidden="{{groupBuyingHidden}}">拼团</view>
@@ -22,6 +25,8 @@
       </view>
     </view>
   </view>
+
+  <!-- 选择配送方式 -->
   <view class="mode-area">
     <view class="left">
       配送方式
@@ -31,28 +36,34 @@
       <button class="button appbutton4 {{storeActive}}" bindtap="selectStore">门店自提</button>
     </view>
   </view>
+
+  <!-- 快递 -->
   <view class="address-area" hidden="{{storeHidden}}">
     <view class="left">
       <view class="name">收货人:
-        <text style="margin-left: 10px">{{username}}</text>
-        <text style="margin-left: 10px">{{phone}}</text>
+        <text style="margin-left: 10px">{{receiver.name}}</text>
+        <text style="margin-left: 10px">{{receiver.phone}}</text>
       </view>
-      <view class="address">{{area}} {{zipcode}}</view>
-      <view class="store">{{address}}</view>
+      <view class="address">{{receiver.area ? receiver.area : '地区'}} {{zipcode}}</view>
+      <view class="store">{{receiver.address ? receiver.address : '地址'}}</view>
     </view>
     <view class="right">
       <button class="button appbutton3" bindtap="editAddress">编辑</button>
     </view>
   </view>
+
+  <!-- 门店 -->
   <view class="storeAddress" hidden="{{!storeHidden}}">
     <view class="list-area">
       <view class="item">
-        姓名: 王小萌
+        姓名: <input  bindinput="userName" value="{{receiver.name}}" placeholder="请输入姓名"/>
       </view>
       <view class="item">
-        联系电话: 13041096933
+        联系电话: <input type="digit" bindinput="userPhone" value="{{receiver.phone}}" placeholder="请输入手机号"/>
       </view>
     </view>
+
+    <!-- 门店列表 -->
     <view class="select-area">
       <scroll-view scroll-y style="height: 270px;">
         <radio-group class="group" bindchange="radioChange">
@@ -77,15 +88,14 @@
       </scroll-view>
     </view>
   </view>
+
   <view class="detail-area">
     <view class="item">
       <view class="left">
-        买家留言:
-      </view>
-      <view class="right">
-      
+        买家留言: <input  bindinput="desc" placeholder="留言"/>
       </view>
     </view>
+
     <view class="item" hidden="{{storeHidden}}">
       <view class="left">
         快递运费:
@@ -94,6 +104,7 @@
         ¥{{productDetails.price_deliver}}
       </view>
     </view>
+
     <view class="item">
       <view class="left">
         价格合计:
@@ -102,6 +113,7 @@
         <text style="color:#db5078">¥{{priceSum}}</text>
       </view>
     </view>
+
     <view class="item">
       <view class="left">
         支付方式:

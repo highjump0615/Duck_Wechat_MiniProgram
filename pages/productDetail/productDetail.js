@@ -27,7 +27,7 @@ Page({
     modalRetreatHidden: true,
     modalFireHidden: true,
     actionSheetHidden: true,
-    commodityCount: 0,
+    commodityCount: 1,
     groupBuyingHidden: true,
     showLoading: false,
 
@@ -75,15 +75,6 @@ Page({
     })
   },
   /*
-    Called when user click 立即购买, 发起拼团, 去参团
-  */
-  actionSheetTap: function (e) {
-    this.setData({
-      actionSheetHidden: !this.data.actionSheetHidden,
-      commodityCount: 0
-    })
-  },
-  /*
     Called when user click close button in actionsheet
   */
   actionSheetChange: function (e) {
@@ -103,7 +94,7 @@ Page({
     Called when user click - in actionsheet
   */
   decreaseCount: function (e) {
-    if (this.data.commodityCount > 0) {
+    if (this.data.commodityCount > 1) {
       this.setData({
         commodityCount: this.data.commodityCount - 1
       })
@@ -116,10 +107,9 @@ Page({
     this.setData({
       groupBuyingHidden: true,
       actionSheetHidden: !this.data.actionSheetHidden,
-      commodityCount: 0,
+      commodityCount: 1,
     });
     util.groupBuyMode = false;
-
   },
   /*
     Called when user click 发起拼团
@@ -128,7 +118,7 @@ Page({
     this.setData({
       groupBuyingHidden: false,
       actionSheetHidden: !this.data.actionSheetHidden,
-      commodityCount: 0,
+      commodityCount: 1,
     })
     util.groupBuyMode = true;
   },
@@ -161,11 +151,13 @@ Page({
       });
     }
 
-    util.buyCnt = this.data.commodityCount;
+    // 设置数量
+    util.prepareOrderInfo.count = this.data.commodityCount;
+    util.prepareOrderInfo.specId = this.data.specId;
+    var dPrice = this.data.commodityCount * this.data.productDetails.price;
+    util.prepareOrderInfo.totalPrice = parseFloat(dPrice) + parseFloat(this.data.productDetails.price_deliver);
     util.productDetails = this.data.productDetails;
-    util.priceSum = this.data.commodityCount * this.data.productDetails.price;
-    var priceDeliver = this.data.productDetails.price_deliver;
-    util.totalPrice = parseFloat(util.priceSum) + parseFloat(priceDeliver);
+
     console.log('go buy now -->');
     console.log(this.data.commodityCount);
     console.log(this.data.productDetails.price);
@@ -175,9 +167,9 @@ Page({
   hideLoading() {
     this.setData({ showLoading: false, loadingMessage: '' });
   },
-/*
-* load function
-*/
+  /*
+  * load function
+  */
   onLoad: function () {
     console.log('onLoad')
  
@@ -187,15 +179,13 @@ Page({
     
   },
 
-  //read the category list
+    //read the category list
     getProductInfo: function () {
       var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
       var productUrl = 'https://hly.weifengkeji.top/public/api/v1/product/detail/' + util.productId
       wx.request({
         url: productUrl,//请求地址
-        data: {
-          
-        },
+        data: {},
         header: {//请求头
           "Content-Type": "applciation/json"
         },
@@ -203,29 +193,16 @@ Page({
         success: function (res) {
           console.log('product informations');
           console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
+
+          // 默认选择第一个规格
+          var specId = res.data.result.specs[0].id;
+          
           that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-            productDetails: res.data.result
+            productDetails: res.data.result,
+            specId: specId,
+            thumbnail: res.data.result.thumbnail,
+            swiperImages: res.data.result.images,
           })
-
-          //get the swiper images
-          app.globalData.cnt = 0;
-          for (let i = 0; i < res.data.result.images.length; i++) {
-            console.log(res.data.result.images[i]);
-
-            wx.downloadFile({
-              url: res.data.result.images[i], //仅为示例，并非真实的资源
-              type: 'image',
-              success: function (res) {
-                that.makeImageUrls(app.globalData.cnt, res.tempFilePath);
-
-                app.globalData.cnt++;
-              }
-            });
-          }
-
-          that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-            swiperImages: res.data.result.images
-          });
 
           /**
           * WxParse.wxParse(bindName , type, data, target,imagePadding)
@@ -254,5 +231,14 @@ Page({
       
 
     },
- 
+
+  /**
+   * 选择规格
+   */
+  selectSpec: function(e) {
+    var specId = e.target.dataset.id;
+    this.setData({
+      specId: specId
+    });
+  }
 })

@@ -36,21 +36,63 @@ App({
     else {
       this.setting = settings;
     }
+
+    // 收件人
+    this.receiver = wx.getStorageSync('receiver') || {}
   },
-  getUserInfo: function (cb) {
+  getUserInfo: function () {
     var that = this;
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
+
+    var userInfo = wx.getStorageSync('userInfo');
+    var strLoginCode;
+
+    if (userInfo) {
+      this.globalData.userInfo = userInfo;
     } else {
       //调用登录接口
       wx.login({
         success: function (loginCode) 
         {
+          strLoginCode = loginCode.code;
+
           wx.getUserInfo({
             success: function (res) {
               that.globalData.userInfo = res.userInfo;
-              that.globalData.userInfo.loginCode = loginCode.code;
-              typeof cb == "function" && cb(that.globalData.userInfo)
+
+               // get the customer id
+              wx.request({
+                url: 'https://hly.weifengkeji.top/public/api/v1/customer/set',//请求地址
+                data: {
+                  login_code: strLoginCode,
+                  name: res.userInfo.nickName,
+                  photo_url: res.userInfo.avatarUrl,
+                },
+                header: {//请求头
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                method: "POST",//get为默认方法/POST
+                success: function (res) {
+                  console.log('get custormer id');
+                  console.log(res.data.customer_id);//res.data相当于ajax里面的data,为后台返回的数据
+
+                  if (res.data.status == "success") {
+                    that.globalData.userInfo.customerId = res.data.customer_id;
+
+                    // 保存
+                    wx.setStorageSync('userInfo', that.globalData.userInfo);
+                  }
+                  else {
+                    wx.showModal({
+                      title: '用户识别获取失败：' + strLoginCode,
+                      showCancel: false
+                    });
+
+                    console.log('用户识别获取失败：' + strLoginCode);
+                  }
+                },
+                fail: function (err) { },//请求失败
+                complete: function () { }//请求完成后执行的函数
+              })
             }
           })
         }
@@ -67,5 +109,5 @@ App({
     customerPhone: '010-92838022',
     noticeRefund: '包退提示',
     noticeGroup: '拼团提示'    
-  }
+  },
 })
