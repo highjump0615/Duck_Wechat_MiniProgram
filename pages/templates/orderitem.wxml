@@ -1,0 +1,61 @@
+<template name="orderitem">
+
+  <view class="index-area">
+    <view class="left">
+      订单号: {{id}}
+    </view>
+    <view class="right" style="color:#e54142">
+      待收货
+    </view>
+  </view>
+  <view class="commodity-item">
+    <view class="commodity-image">
+      <image src="{{product_image}}"></image>
+    </view>
+    <view class="commodity-info" style="width:100%">
+      <view class="commodity-description">
+        {{product_name}}
+      </view>
+      <view class="price">
+        <view class="left">×{{count}}</view>
+        <view class="right">¥{{product_price}}</view>
+      </view>
+      <view class="remain">
+        <view class="left">
+          <button class="button appbutton3">{{spec}}</button>
+        </view>
+        <view wx:if="{{is_groupbuy}}" class="right">
+          <button class="button appbutton2">拼团</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-area">
+    <view class="price-area">
+      <view class="left">
+        <view class="total">合计:
+          <text>¥{{price}}</text> (运费 ¥{{deliver_cost}})</view>
+        <view class="time">下单时间: {{created_at}}</view>
+        <view class="store" wx:if="{{channel == 0}}">快递配送</view>
+        <view class="store" wx:else>门店自提: {{store_name}}</view>
+      </view>
+      <view class="right">
+        <view class="left">
+          <button data-id="{{id}}" bindtap="detailClick" class="button appbutton4">详情</button>
+        </view>
+      </view>
+    </view>
+    <view class="count-area" wx:if="{{is_groupbuy}}">
+      <view class="left">
+        人数: {{groupbuy.persons}}
+      </view>
+      <view class="right" wx:if="{{status_val > 5}}">
+        己结束: 拼团成功
+      </view>
+      <view class="right" wx:elif="{{status_val == 1}}">
+        倒计时: {{remain_time_formatted}}
+      </view>
+    </view>
+  </view>
+</template>

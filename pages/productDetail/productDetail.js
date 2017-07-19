@@ -110,6 +110,8 @@ Page({
       commodityCount: 1,
     });
     util.groupBuyMode = false;
+
+    util.prepareOrderInfo.groupBuy = -1;
   },
   /*
     Called when user click 发起拼团
@@ -121,6 +123,8 @@ Page({
       commodityCount: 1,
     })
     util.groupBuyMode = true;
+
+    util.prepareOrderInfo.groupBuy = 0;
   },
   /*
     Called when user click '下一步' button

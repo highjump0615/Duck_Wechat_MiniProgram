@@ -16,8 +16,19 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
+
 module.exports = {
   formatTime: formatTime,
+
+  /**
+   * 秒转成mm:ss
+   */
+  formatMinute: function(seconds) {
+    var hour = Math.floor(Math.floor(seconds / 60) / 60);
+    var min = Math.floor(seconds / 60) % 60;
+
+    return hour + ':' + min;
+  },
 
   // 商品详情 -> 待付款
   prepareOrderInfo: {

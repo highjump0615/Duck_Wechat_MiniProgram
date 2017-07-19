@@ -38,7 +38,7 @@ App({
     }
 
     // 收件人
-    this.receiver = wx.getStorageSync('receiver') || {}
+    this.receiver = wx.getStorageSync('receiver');
   },
   getUserInfo: function () {
     var that = this;

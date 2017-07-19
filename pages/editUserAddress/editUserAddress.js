@@ -33,38 +33,41 @@ Page({
     Called when user click 保存
   */
   saveAction: function(e) {
+    var newReceiver = this.data.receiver || {};
+
     // 姓名
     if (!this.data.username) {
       this.showErrorMessage('请输入收件人姓名');
       return;
     }
-    this.data.receiver.name = this.data.username; 
+    newReceiver.name = this.data.username; 
 
     // 联系电话
     if (!this.data.phone) {
       this.showErrorMessage('请输入手机号');
       return;
     }
-    this.data.receiver.phone = this.data.phone; 
+    newReceiver.phone = this.data.phone; 
 
     // 地区
     if (!this.data.area) {
       this.showErrorMessage('请输入地区');
       return;
     }
-    this.data.receiver.area = this.data.area; 
+    newReceiver.area = this.data.area; 
 
     // 地址
     if (!this.data.address) {
       this.showErrorMessage('请输入详细地址');
       return;
     }
-    this.data.receiver.address = this.data.address; 
+    newReceiver.address = this.data.address; 
 
     // 邮政编码
-    this.data.receiver.zipcode = this.data.zipcode; 
+    newReceiver.zipcode = this.data.zipcode; 
 
     // 保存
+    this.data.receiver = newReceiver;
     app.receiver = this.data.receiver;
     wx.setStorageSync('receiver', this.data.receiver)
    

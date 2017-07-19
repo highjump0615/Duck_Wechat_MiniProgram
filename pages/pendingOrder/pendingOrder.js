@@ -5,6 +5,8 @@ var md5 = require('../../lib/md5.js')
 
 var app = getApp();
 
+var gnStoreId = 0;
+
 Page({
 
   /**
@@ -79,6 +81,7 @@ Page({
     for (var i = 0; i < this.data.storeList.length; i++) {
       if (checked.indexOf(this.data.storeList[i].id) !== -1) {
         changed['storeList[' + i + '].checked'] = true
+        gnStoreId = this.data.storeList[i].id;
       } else {
         changed['storeList[' + i + '].checked'] = false
       }
@@ -97,8 +100,8 @@ Page({
     });
   },
   /*
-* load function
-*/
+  * load function
+  */
   onLoad: function () {
     console.log(util.prepareOrderInfo);
 
@@ -149,6 +152,7 @@ Page({
         // 默认选择第一家门店
         if (stores.length > 0) {
           stores[0].checked = true;
+          gnStoreId = stores[0].id;
         }
 
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
@@ -181,6 +185,20 @@ Page({
       desc: e.detail.value
     })
   },
+
+  showPayemntError: function() {
+    wx.showModal({
+      title: '无法开启支付接口！',
+      showCancel: false
+    });
+  },
+
+  showMakeOrderError: function() {
+    wx.showModal({
+      title: '下单失败！',
+      showCancel: false
+    });
+  },
   
   /*
     Called when user click 提交订单
@@ -196,12 +214,15 @@ Page({
       return;
     }
 
+    this.makeOrder();
+    return;
+
     // 预支付
     wx.request({
       url: config.api.baseUrl + '/order/prepare',//请求地址
       data: {
         product_id: util.productDetails.id,
-        customer_id: util.userInfo.customerId,
+        customer_id: app.globalData.userInfo.customerId,
         price: util.prepareOrderInfo.totalPrice
       },
       header: {//请求头
@@ -213,13 +234,10 @@ Page({
 
         if (res.statusCode > 200) {
           // 失败
-          wx.showToast({
-            title: '无法开启支付接口！'
-          });
-
+          this.showPayemntError();
           return;
         }
-        
+
         var response = res.data.result;
         // 发起支付
         var appId = response.appid;
@@ -238,10 +256,8 @@ Page({
           'signType': 'MD5',
           'paySign': paySign,
           'success':function(res){
-            wx.showToast({
-              title: '支付成功', 
-              icon: 'success'
-            });
+            // 生成订单
+            makeOrder();
           },
           'fail':function(res){
             console.log(res);
@@ -249,12 +265,10 @@ Page({
         });
       },
       fail: function (err) {
-        wx.showToast({
-          title: '无法开启支付接口！'
-        });
+        this.showPayemntError();
       },//请求失败
       complete: function () { }//请求完成后执行的函数
-    })
+    });
 
     // if(this.data.deliveryActive == 'active') {
     //   wx.navigateTo({
@@ -265,5 +279,79 @@ Page({
     //     url: '../deliveredOrder/deliveredOrder'
     //   });
     // }
+  },
+  /**
+   * 生成订单
+   */
+  makeOrder: function() {
+
+    var paramData = {
+      customer_id: app.globalData.userInfo.customerId,
+      product_id: util.productDetails.id,
+      count: this.data.buyCnt,
+      // 收件人
+      name: this.data.receiver.name,
+      phone: this.data.receiver.phone,
+      // 规格
+      spec_id: util.prepareOrderInfo.specId,
+      channel: this.data.channel,
+      desc: this.data.desc,
+      price: util.prepareOrderInfo.totalPrice,
+    };
+
+    // 门店
+    if (this.data.channel == config.channel.self) {
+      paramData.store_id = gnStoreId
+    }
+    else {
+      // 地址
+      paramData.address = this.data.receiver.address;
+    }
+
+    // 拼团
+    paramData.groupbuy_id = util.prepareOrderInfo.groupBuy;
+
+    wx.request({
+      url: config.api.baseUrl + '/order/make',//请求地址
+      data: paramData,
+      header: {//请求头
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST",//get为默认方法/POST
+      success: function (res) {
+        if (res.statusCode > 200) {
+          // 失败
+          this.showMakeOrderError();
+          return;
+        }
+
+        // 下单成功
+        wx.showToast({
+          title: '下单成功'
+        });
+
+        // 跳转，默认是拼团列表
+        strUrl = '../userGroup/userGroup';
+        if (util.prepareOrderInfo.groupBuy < 0) {
+          // 门店订单
+          if (this.data.channel == config.channel.self) {
+            strUrl = '../storeOrder/storeOrder';
+          }
+          // 快递订单
+          else {
+            strUrl = '../deliveryOrder/deliveryOrder';
+          }
+        }
+
+        // 跳转到订单列表页面
+        wx.redirectTo({
+          url: strUrl
+        });
+      },
+      fail: function (err) {
+        this.showMakeOrderError();
+      },//请求失败
+      complete: function () { }//请求完成后执行的函数
+    })
   }
 })

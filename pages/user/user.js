@@ -42,8 +42,8 @@ Page({
     // get the categorylist from backend-server
     var that = this
     that.setData ({
-      myName : util.userInfo.nickName,
-      myImage : util.userInfo.avatarUrl,
+      myName : app.globalData.userInfo.nickName,
+      myImage : app.globalData.userInfo.avatarUrl,
       phone: app.setting.customerPhone
     })
 
