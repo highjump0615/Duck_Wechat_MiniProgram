@@ -119,12 +119,14 @@
         <image src="{{thumbnail}}"></image>
       </view>
 
+      <!-- 单价 -->
       <view class="product-info">
         <view class="product-description">
           {{productDetails.name}}
         </view>
         <view class="price">
-          <text class="price1">¥{{productDetails.price}}</text>
+          <text class="price1" wx:if="{{groupBuyingHidden}}">¥{{productDetails.price}}</text>
+          <text class="price1" wx:else>¥{{productDetails.gb_price}}</text>
           <view class="groupBuying" hidden="{{groupBuyingHidden}}">
             拼团
           </view>
@@ -135,6 +137,7 @@
         </view>
       </view>
     </view>
+
     <view class="buttons">
       <block wx:for="{{productDetails.specs}}" wx:for-item="spec">
           <button wx:if="{{specId == spec.id}}" data-id="{{spec.id}}" class="button appbutton2 selected">

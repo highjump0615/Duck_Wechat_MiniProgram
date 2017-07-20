@@ -117,13 +117,19 @@ Page({
       }
     }
 
+    // 获取单价
+    var dPrice = util.productDetails.price;
+    if (util.groupBuyMode) {
+      dPrice = util.productDetails.gb_price;
+    }
+
     this.setData({
       productDetails: util.productDetails,
       buyCnt: util.prepareOrderInfo.count,
       spec: strSpec,
 
       // 价格合计
-      priceSum: util.prepareOrderInfo.count * util.productDetails.price,  
+      priceSum: util.prepareOrderInfo.count * dPrice, 
 
       // 价格总计
       totalPrice: util.prepareOrderInfo.totalPrice

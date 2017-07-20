@@ -13,7 +13,8 @@
       </view>
       <view class="price">
         <view class="left">×{{buyCnt}}</view>
-        <view class="right">¥{{productDetails.price}}</view>
+        <view class="right" wx:if="{{groupBuyingHidden}}">¥{{productDetails.price}}</view>
+        <view class="right" wx:else>¥{{productDetails.gb_price}}</view>
       </view>
       <view class="remain">
         <view class="left">

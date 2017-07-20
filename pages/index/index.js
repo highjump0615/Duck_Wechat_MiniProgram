@@ -125,32 +125,14 @@ Page({
         console.log('get the product list of one category');
         console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
         //console.log(res.data.imageUrl);//res.data相当于ajax里面的data,为后台返回的数据
-        app.globalData.cnt = 0;
-        for (let i=0;i<res.data.result.length;i++){
-          console.log('detail image urls');
-          console.log(res.data.result[i].thumbnail); 
-           
-            wx.downloadFile({
-              url: res.data.result[i].thumbnail, //仅为示例，并非真实的资源
-              type: 'image',
-              success: function (res) {
-                that.makeImageUrls(app.globalData.cnt,res.tempFilePath);
-                app.globalData.cnt++;
-              }
-            })
-        }
+
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           products : res.data.result
-                    
         })
-        
-
       },
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
-   
-
   },
 
   detailClick: function (e) {
@@ -159,10 +141,7 @@ Page({
     console.log(util.productId);
     wx.navigateTo({
       url: '../productDetail/productDetail'
-
     });
-
- 
   },
 
   /**

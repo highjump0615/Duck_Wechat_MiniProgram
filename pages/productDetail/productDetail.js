@@ -157,8 +157,14 @@ Page({
     // 设置数量
     util.prepareOrderInfo.count = this.data.commodityCount;
     util.prepareOrderInfo.specId = this.data.specId;
-    var dPrice = this.data.commodityCount * this.data.productDetails.price;
-    util.prepareOrderInfo.totalPrice = parseFloat(dPrice) + parseFloat(this.data.productDetails.price_deliver);
+
+    // 获取单价
+    var dPrice = this.data.productDetails.price;
+    if (util.groupBuyMode) {
+      dPrice = this.data.productDetails.gb_price;
+    }
+    
+    util.prepareOrderInfo.totalPrice = parseFloat(this.data.commodityCount * dPrice) + parseFloat(this.data.productDetails.price_deliver);
     util.productDetails = this.data.productDetails;
 
     console.log('go buy now -->');
@@ -228,16 +234,6 @@ Page({
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
-  },
-
-  makeImageUrls: function (i, imgUrl) {
-    console.log(imgUrl);
-    
-      this.data.swiperImages[i] = imgUrl;
-      console.log("each product images");
-      console.log(this.data.swiperImages[i]);
-    
-
   },
 
   /**
