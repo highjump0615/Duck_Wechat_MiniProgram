@@ -1,43 +1,51 @@
 <!--pages/receivedOrder/receivedOrder.wxml-->
+
 <view class="pending-item receivedOrder">
+
+  <!-- 商品 -->
   <view class="commodity-item">
     <view class="commodity-image">
-      <image src="../../images/commodity-1.png"></image>
+      <image src="{{order.product_image}}"></image>
     </view>
-    <view class="commodity-info">
+    <view class="commodity-info" style="width:100%">
       <view class="commodity-description">
-        奶油味夏威夷果 奶油口味特产干货干果 坚果零食小吃袋装
+        {{order.product_name}}
       </view>
       <view class="price">
-        <view class="left">×1</view>
-        <view class="right">¥69.00</view>
+        <view class="left">×{{order.count}}</view>
+        <view class="right">¥{{order.product_price}}</view>
       </view>
       <view class="remain">
         <view class="left">
-          <button class="button appbutton3">50G</button>
+          <button class="button appbutton3">{{order.spec}}</button>
         </view>
         <view class="right">
-           <view class="groupBuying" hidden="{{groupBuyingHidden}}">拼团</view>
+           <view class="groupBuying" hidden="{{!order.is_groupbuy}}">拼团</view>
         </view>
       </view>
     </view>
   </view>
+
   <view class="mode-area">
     <view class="left">
       配送方式
     </view>
-    <view class="right">
-      快递配送
-    </view>
+    <view class="right" wx:if="{{order.channel == 0}}">快递配送</view>
+    <view class="right" wx:else>门店自提</view>
   </view>
+
   <view class="address-area">
     <view class="left">
       <view class="name">
-        <text>王小萌</text>
-        <text style="margin-left: 10px">15126489546</text>
+        <text>{{order.name}}</text>
+        <text style="margin-left: 10px">{{order.phone}}</text>
       </view>
-      <view class="address">北京市 朝阳区 10021</view>
-      <view class="store">朝阳区 北京工业大学东门</view>
+
+      <view class="address" wx:if="{{order.channel == 0}}">{{order.area}} {{order.zipcode}}</view>
+      <view class="address" wx:else>{{store.name}} {{store.phone}}</view>
+
+      <view class="store" wx:if="{{order.channel == 0}}">详细地址 {{order.address}}</view>
+      <view class="store" wx:else>门店地址 {{order.store.address}}</view>
     </view>
     <view class="right">
       
@@ -49,7 +57,7 @@
         买家留言
       </view>
       <view class="right">
-      
+        {{order.desc}}
       </view>
     </view>
     <view class="item" style="border: none;">
@@ -57,7 +65,7 @@
         商品金额
       </view>
       <view class="right">
-        <text style="color:#db5078">¥69.00</text>
+        <text style="color:#db5078">¥{{order.price}}</text>
       </view>
     </view>
     <view class="item">
@@ -65,28 +73,33 @@
         运费
       </view>
       <view class="right">
-        <text style="color:#db5078">¥0.00</text>
+        <text style="color:#db5078">¥{{order.deliver_cost}}</text>
       </view>
     </view>
-    <view class="item">
+    <view class="item" wx:if="{{order.channel == 0}}">
       <view class="left">
-        快递单号: 877653675790
+        快递单号: {{order.deliver_code}}
       </view>
       <view class="right">
       </view>
     </view>
-    <view class="item" style="border: none;">
+    <view class="item" style="border: none;" wx:if="{{order.is_groupbuy}}">
       <view class="left">
-        参与人数: 3
+        参与人数: {{order.groupbuy_persons}}
       </view>
       <view class="right">
       </view>
     </view>
   </view>
+  
   <view class="button-area">
-    <view class="total">状态为: 待收货</view>
-    <button class="button appbutton2" bindtap="confirmReceipt">
+    <view class="total">状态为: {{order.status}}</view>
+    <button class="button appbutton2" bindtap="confirmReceipt" wx:if="{{order.status_val == 10}}">
         确认收货
+    </button>
+    <button class="button appbutton2 disabled" wx:else>
+      <view wx:if="{{order.status_val == 15}}">返回</view>
+      <view wx:else>确认收货</view>
     </button>
   </view>
 </view>

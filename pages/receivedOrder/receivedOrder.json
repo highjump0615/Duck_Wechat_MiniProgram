@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "待收货的订单",
+  "navigationBarTitleText": "订单详情",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light"
 }

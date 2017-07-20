@@ -41,6 +41,14 @@ Page({
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
+  },
+
+  detailClick: function(e) {
+    // 跳转到订单详情页面
+    wx.navigateTo({
+      url: '../receivedOrder/receivedOrder?id=' + e.target.dataset.id
+    });
   }
+
 
 })

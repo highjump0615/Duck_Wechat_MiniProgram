@@ -24,7 +24,8 @@ Page({
     thumbnail: '',
     storeList: [],
     // 配送渠道
-    channel: config.channel.delivery
+    channel: config.channel.delivery,
+    desc: ''
   },
   /**
    * 生命周期函数--监听页面显示
@@ -270,10 +271,6 @@ Page({
       complete: function () { }//请求完成后执行的函数
     });
 
-    // if(this.data.deliveryActive == 'active') {
-    //   wx.navigateTo({
-    //     url: '../receivedOrder/receivedOrder'
-    //   });
     // }else if(this.data.storeActive == 'active') {
     //   wx.navigateTo({
     //     url: '../deliveredOrder/deliveredOrder'
@@ -308,6 +305,8 @@ Page({
     else {
       // 地址
       paramData.address = this.data.receiver.address;
+      paramData.area = this.data.receiver.area;
+      paramData.zipcode = this.data.receiver.zipcode;
     }
 
     // 拼团

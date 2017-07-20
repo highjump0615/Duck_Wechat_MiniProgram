@@ -5,9 +5,10 @@
       订单号: {{id}}
     </view>
     <view class="right" style="color:#e54142">
-      待收货
+      {{status}}
     </view>
   </view>
+  
   <view class="commodity-item">
     <view class="commodity-image">
       <image src="{{product_image}}"></image>

@@ -44,6 +44,10 @@ button.appbutton2 {
   background-color: #68bc5e;
 }
 
+button.appbutton2.disabled {
+  opacity: 0.7
+}
+
 .sub-button {
   display: inline-block;
   width: 50%;
