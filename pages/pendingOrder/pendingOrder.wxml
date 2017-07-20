@@ -68,7 +68,7 @@
     <view class="select-area">
       <scroll-view scroll-y style="height: 270px;">
         <radio-group class="group" bindchange="radioChange">
-          <view class="radio-item" wx:for="{{storeList}}" wx:for-item="store">
+          <view class="radio-item" wx:for="{{storeList}}" wx:for-item="store" wx:for-index="index">
             <radio id="{{store.id}}" hidden value="{{store.id}}" checked="{{store.checked}}"></radio>
             <view class="radio-icon">
               <view class="radio-icon-checked" style="opacity:{{store.checked ? 1: 0}}"></view>
@@ -79,7 +79,7 @@
                 <view class="address">门店地址: {{store.address}}</view>
                 <view class="phone">联系电话: {{store.phone}}</view>
               </view>
-              <view class="right" data-id="{{store.id}}" bindtap="goMap">
+              <view class="right" data-index="{{index}}" bindtap="goMap">
                 <view class="distance">距您 {{store.distance}}M</view>
                 <view class="marker"><image src="../../images/marker.png"></image></view>
               </view>

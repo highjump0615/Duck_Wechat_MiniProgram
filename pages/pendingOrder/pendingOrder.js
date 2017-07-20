@@ -93,12 +93,22 @@ Page({
     Called when user click map marker
    */
   goMap: function(e) {
-    console.log('pending order map');
+    var nIndex = e.currentTarget.dataset.index;
+    var store = this.data.storeList[nIndex];
+
+    wx.openLocation({
+      latitude: store.latitude,
+      longitude: store.longitude,
+      scale: 12,
+      name: store.name,
+      address: store.address,
+      success: function() {}
+    })
     
-    console.log(e.target.dataset.id);
-    wx.navigateTo({
-      url: '../map/map'
-    });
+    // console.log(e.target.dataset.id);
+    // wx.navigateTo({
+    //   url: '../map/map'
+    // });
   },
   /*
   * load function

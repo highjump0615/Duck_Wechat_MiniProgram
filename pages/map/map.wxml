@@ -1,6 +1,18 @@
 <!--pages/map/map.wxml-->
 <view class="map">
-  <map id="map" longitude="{{pointLongitude}}" latitude="{{pointLatitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location></map>
+  <map 
+    id="map" 
+    longitude="{{pointLongitude}}" 
+    latitude="{{pointLatitude}}" 
+    scale="14" 
+    controls="{{controls}}" 
+    bindcontroltap="controltap" 
+    markers="{{markers}}" 
+    bindmarkertap="markertap" 
+    polyline="{{polyline}}" 
+    bindregionchange="regionchange" 
+    show-location>
+  </map>
   <view class="navigation">
     <view class="detail">
       <view>北工大门店</view>
