@@ -7,7 +7,7 @@
     <view class="commodity-image">
       <image src="{{order.product_image}}"></image>
     </view>
-    <view class="commodity-info" style="width:100%">
+    <view class="commodity-info">
       <view class="commodity-description">
         {{order.product_name}}
       </view>

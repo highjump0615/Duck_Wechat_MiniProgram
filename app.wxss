@@ -369,3 +369,7 @@ text.go-detail {
   margin-left: 5px;
   color: #555;
 }
+
+.commodity-item .commodity-info {
+  width: 100%
+}

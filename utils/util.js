@@ -27,7 +27,12 @@ module.exports = {
     var hour = Math.floor(Math.floor(seconds / 60) / 60);
     var min = Math.floor(seconds / 60) % 60;
 
-    return hour + ':' + min;
+    return [hour, min].map(formatNumber).join(':')
+  },
+
+  foramtSeconds: function(seconds) {
+    var sec = seconds % 60;
+    return this.formatMinute(seconds) + ':' + formatNumber(sec);
   },
 
   // 商品详情 -> 待付款

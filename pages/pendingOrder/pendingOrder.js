@@ -226,7 +226,8 @@ Page({
       data: {
         product_id: util.productDetails.id,
         customer_id: app.globalData.userInfo.customerId,
-        price: util.prepareOrderInfo.totalPrice
+        // price: util.prepareOrderInfo.totalPrice
+        price: 0.01
       },
       header: {//请求头
         "Content-Type": "application/x-www-form-urlencoded"
@@ -332,7 +333,7 @@ Page({
         });
 
         // 跳转，默认是拼团列表
-        strUrl = '../userGroup/userGroup';
+        var strUrl = '../userGroup/userGroup';
         if (util.prepareOrderInfo.groupBuy < 0) {
           // 门店订单
           if (that.data.channel == config.channel.self) {

@@ -52,9 +52,27 @@
         <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
       </view>
     </view>
+
+    <!-- 拼团列表 -->
     <view class="user-area">
-      <block wx:for="{{users}}" wx:for-item="user">
-        <template is="wechatUser" data="{{...user}}"></template>
+      <block wx:for="{{productDetails.groupbuys}}" wx:for-item="groupbuy">
+
+        <view class="user-item">
+            <view class="user-image">
+              <image src="{{groupbuy.customer.image_url}}" style="border-radius: 50%"></image>
+            </view>
+            <view class="user-info">
+              <view class="user-description">
+                <view class="description">{{groupbuy.customer.name}}发起了拼团</view>
+                <view class="info">人数: {{groupbuy.persons}}人, 倒计时: {{groupbuy.time_remain_formatted}}</view>
+              </view>
+              <view class="gobutton">
+                <button data-id="{{groupbuy.id}}" class="appbutton3" bindtap="inGroupBuy">
+                  去参团
+                </button>
+              </view>
+            </view>
+          </view>
       </block>
     </view>
   </view>

@@ -13,16 +13,6 @@ Page({
    */
   data: {
     swiperImages: [],
-    users: [
-      {
-        id: '0',
-        src: '../../images/user.png'
-      },
-      {
-        id: '1',
-        src: '../../images/user.png'
-      },
-    ],
     productArray: [], // each product info array
     modalRetreatHidden: true,
     modalFireHidden: true,
@@ -126,6 +116,15 @@ Page({
 
     util.prepareOrderInfo.groupBuy = 0;
   },
+
+  /**
+   * 参加拼团
+   */
+  inGroupBuy: function(e) {
+    this.goGroupBuy();
+    util.prepareOrderInfo.groupBuy = e.target.dataset.id;
+  },
+
   /*
     Called when user click '下一步' button
   */
@@ -183,58 +182,63 @@ Page({
     
   },
 
-    //read the category list
-    getProductInfo: function () {
-      var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
-      var productUrl = 'https://hly.weifengkeji.top/public/api/v1/product/detail/' + util.productId
-      wx.request({
-        url: productUrl,//请求地址
-        data: {},
-        header: {//请求头
-          "Content-Type": "applciation/json"
-        },
-        method: "GET",//get为默认方法/POST
-        success: function (res) {
-          console.log('product informations');
-          console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
+  //read the category list
+  getProductInfo: function () {
+    var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
+    var productUrl = 'https://hly.weifengkeji.top/public/api/v1/product/detail/' + util.productId
+    wx.request({
+      url: productUrl,//请求地址
+      data: {},
+      header: {//请求头
+        "Content-Type": "applciation/json"
+      },
+      method: "GET",//get为默认方法/POST
+      success: function (res) {
+        console.log('product informations');
+        console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
 
-          // 默认选择第一个规格
-          var specId = res.data.result.specs[0].id;
-          
-          that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-            productDetails: res.data.result,
-            specId: specId,
-            thumbnail: res.data.result.thumbnail,
-            swiperImages: res.data.result.images,
-          })
+        // 默认选择第一个规格
+        var specId = res.data.result.specs[0].id;
 
-          /**
-          * WxParse.wxParse(bindName , type, data, target,imagePadding)
-          * 1.bindName绑定的数据名(必填)
-          * 2.type可以为html或者md(必填)
-          * 3.data为传入的具体数据(必填)
-          * 4.target为Page对象,一般为this(必填)
-          * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
-          */
-          WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 5);
-          
-          console.log('productdetail->swiperimages')
-          console.log(that.data.swiperImages)
-        },
-        fail: function (err) { },//请求失败
-        complete: function () { }//请求完成后执行的函数
-      })
-    },
- 
-    makeImageUrls: function (i, imgUrl) {
-      console.log(imgUrl);
-      
-        this.data.swiperImages[i] = imgUrl;
-        console.log("each product images");
-        console.log(this.data.swiperImages[i]);
-      
+        var detail = res.data.result;
+        for (var i = 0; i < detail.groupbuys.length; i++) {
+          detail.groupbuys[i].time_remain_formatted = util.foramtSeconds(detail.groupbuys[i].time_remain);
+        }
+        
+        that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
+          productDetails: detail,
+          specId: specId,
+          thumbnail: res.data.result.thumbnail,
+          swiperImages: res.data.result.images,
+        })
 
-    },
+        /**
+        * WxParse.wxParse(bindName , type, data, target,imagePadding)
+        * 1.bindName绑定的数据名(必填)
+        * 2.type可以为html或者md(必填)
+        * 3.data为传入的具体数据(必填)
+        * 4.target为Page对象,一般为this(必填)
+        * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
+        */
+        WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 5);
+        
+        console.log('productdetail->swiperimages')
+        console.log(that.data.swiperImages)
+      },
+      fail: function (err) { },//请求失败
+      complete: function () { }//请求完成后执行的函数
+    })
+  },
+
+  makeImageUrls: function (i, imgUrl) {
+    console.log(imgUrl);
+    
+      this.data.swiperImages[i] = imgUrl;
+      console.log("each product images");
+      console.log(this.data.swiperImages[i]);
+    
+
+  },
 
   /**
    * 选择规格
