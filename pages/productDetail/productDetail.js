@@ -201,10 +201,12 @@ Page({
   //read the category list
   getProductInfo: function () {
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
-    var productUrl = 'https://hly.weifengkeji.top/public/api/v1/product/detail/' + util.productId
+    var productUrl = config.api.baseUrl + '/product/detail/' + util.productId
     wx.request({
       url: productUrl,//请求地址
-      data: {},
+      data: {
+        customer_id: app.globalData.userInfo.customerId
+      },
       header: {//请求头
         "Content-Type": "applciation/json"
       },
