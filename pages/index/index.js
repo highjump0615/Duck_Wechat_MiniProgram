@@ -17,7 +17,7 @@ Page({
    */
   onLoad: function () {
     console.log('onLoad')
-      // get the categorylist from backend-server
+    // get the categorylist from backend-server
  
      var that = this
     //调用应用实例的方法获取全局数据

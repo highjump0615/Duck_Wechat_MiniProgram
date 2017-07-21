@@ -80,7 +80,7 @@
                 <view class="phone">联系电话: {{store.phone}}</view>
               </view>
               <view class="right" data-index="{{index}}" bindtap="goMap">
-                <view class="distance">距您 {{store.distance}}M</view>
+                <view class="distance">{{store.distance}}Km</view>
                 <view class="marker"><image src="../../images/marker.png"></image></view>
               </view>
             </label>

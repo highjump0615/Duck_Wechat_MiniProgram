@@ -181,6 +181,16 @@ Page({
   */
   onLoad: function () {
     console.log('onLoad')
+
+    // 获取当前位置
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        app.globalData.userInfo.latitude = res.latitude;
+        app.globalData.userInfo.longitude = res.longitude;
+      }
+    })
+
  
     // get the categorylist from backend-server
     //this.getProductbeforImages();
