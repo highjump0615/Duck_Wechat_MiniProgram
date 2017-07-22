@@ -2,7 +2,7 @@
 
   <view class="index-area">
     <view class="left">
-      订单号: {{id}}
+      订单号: {{number}}
     </view>
     <view class="right" style="color:#e54142">
       {{status}}

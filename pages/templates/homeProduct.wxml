@@ -1,5 +1,5 @@
 <template name="homeProduct" class="home-product">
-  <view class="product-item">
+  <view class="product-item" data-id="{{id}}" bindtap="detailClick">
 
     <!-- 图片 -->
     <view class="product-image">
@@ -17,7 +17,6 @@
         <text class="price2">
           拼团价: ¥{{gb_price}}
         </text>
-        <text class="go-detail" data-id="{{id}}" bindtap="detailClick">详情 ></text>
       </view>
     </view>
   </view>

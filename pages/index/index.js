@@ -137,7 +137,7 @@ Page({
 
   detailClick: function (e) {
     var that = this;
-    util.productId = e.target.dataset.id;
+    util.productId = e.currentTarget.dataset.id;
     console.log(util.productId);
     wx.navigateTo({
       url: '../productDetail/productDetail'
