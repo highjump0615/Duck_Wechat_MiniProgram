@@ -135,6 +135,19 @@ Page({
     })
   },
 
+  /**
+   * 点击宣传图片
+   */
+  onAdImage: function(e) {
+    util.productId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../productDetail/productDetail'
+    });
+  },
+  
+  /**
+   * 点击商品
+   */
   detailClick: function (e) {
     var that = this;
     util.productId = e.currentTarget.dataset.id;

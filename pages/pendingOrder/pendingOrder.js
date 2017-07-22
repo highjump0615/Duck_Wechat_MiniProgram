@@ -266,8 +266,8 @@ Page({
       return;
     }
 
-    this.makeOrder();
-    return;
+    // this.makeOrder();
+    // return;
 
     // 预支付
     wx.request({
@@ -311,6 +311,10 @@ Page({
             that.makeOrder();
           },
           'fail':function(res){
+            wx.showModal({
+              title: '支付失败',
+              showCancel: false
+            });
             console.log(res);
           }
         });

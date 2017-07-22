@@ -110,4 +110,19 @@ App({
     noticeRefund: '包退提示',
     noticeGroup: '拼团提示'    
   },
+
+  //自定义Toast   
+  showToast: function(text,o,count){
+    var _this = o;
+    count = parseInt(count) ? parseInt(count) : 3000;
+    _this.setData({
+      toastText:text,
+      isShowToast: true,
+    });
+    setTimeout(function () {
+      _this.setData({
+        isShowToast: false
+      });
+    },count);
+  },
 })

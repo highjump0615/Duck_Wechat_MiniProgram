@@ -12,7 +12,7 @@
     <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
       <block wx:for="{{swiperImages}}" wx:for-item="image">
         <swiper-item>
-          <image class="swiper-img" src="{{image.image_url}}"></image>
+          <image class="swiper-img" src="{{image.image_url}}" data-id="{{image.product_id}}" bindtap="onAdImage"></image>
         </swiper-item>
       </block>
     </swiper>

@@ -1,0 +1,13 @@
+<template name="toast">
+<view class="container">
+  <!--wxapp-toast start-->
+  <view class="wxapp-toast-content-box">
+    <view class="wxapp-toast-content">
+      <view class="wxapp-toast-content-text">
+        aslkdjflaskdjf{{toastText}}
+      </view>
+    </view>
+  </view>
+  <!--wxapp-toast end-->
+</view>
+</template>

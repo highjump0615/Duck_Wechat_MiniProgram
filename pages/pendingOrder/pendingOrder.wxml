@@ -1,4 +1,5 @@
 <!--pages/pendingOrder/pendingOrder.wxml-->
+
 <view class="pending-item">
   <view class="commodity-item">
 
@@ -132,4 +133,5 @@
         提交订单
     </button>
   </view>
+
 </view>
