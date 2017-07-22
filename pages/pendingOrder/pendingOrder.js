@@ -378,32 +378,23 @@ Page({
 
         // 成功
         if (res.data.status == 'success') {
+          var orderId = res.data.result;
+
           wx.showToast({
-            title: '下单成功'
+            title: '下单成功',
           });
 
-          // 跳转，默认是拼团列表
-          var strUrl = '../userGroup/userGroup';
-          if (util.prepareOrderInfo.groupBuy < 0) {
-            // 门店订单
-            if (that.data.channel == config.channel.self) {
-              strUrl = '../storeOrder/storeOrder';
-            }
-            // 快递订单
-            else {
-              strUrl = '../deliveryOrder/deliveryOrder';
-            }
-          }
+          setTimeout(function() {
+            // 跳转到订单详情页面
+            wx.redirectTo({
+              url: '../receivedOrder/receivedOrder?id=' + orderId
+            });
+          }, 1000);
         }
         // 失败
         else {
           that.showMakeOrderError(res.data.message);
         }
-
-        // 跳转到订单列表页面
-        wx.redirectTo({
-          url: strUrl
-        });
       },
       fail: function (err) {
         that.showMakeOrderError();
