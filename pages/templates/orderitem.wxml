@@ -51,10 +51,13 @@
       <view class="left">
         人数: {{groupbuy.persons}}
       </view>
-      <view class="right" wx:if="{{status_val > 5}}">
+      <view class="right" wx:if="{{status_val >= config.orderStatus.init}}">
         己结束: 拼团成功
       </view>
-      <view class="right" wx:elif="{{status_val == 1}}">
+      <view class="right" wx:elif="{{status_val == config.orderStatus.cancelled}}">
+        已到期：拼团失败
+      </view>
+      <view class="right" wx:else>
         倒计时: {{remain_time_formatted}}
       </view>
     </view>

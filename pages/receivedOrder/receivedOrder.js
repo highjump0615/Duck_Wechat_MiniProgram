@@ -11,7 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order: {}
+    order: {},
+    labelReceive: '收货',
+    config: config
   },
 
   onLoad: function(option) {
@@ -29,8 +31,15 @@ Page({
       },
       method: "GET",//get为默认方法/POST
       success: function (res) {
+        var order = res.data.result;
+        var strLabel = '收货';
+        if (order.channel == config.channel.self) {
+          strLabel = '提货';
+        }
+
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-          order: res.data.result
+          order: res.data.result,
+          labelReceive: strLabel
         })
       },
       fail: function (err) { },//请求失败

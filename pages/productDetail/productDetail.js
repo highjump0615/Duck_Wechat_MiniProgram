@@ -189,13 +189,11 @@ Page({
         app.globalData.userInfo.latitude = res.latitude;
         app.globalData.userInfo.longitude = res.longitude;
       }
-    })
+    })    
+  },
 
- 
-    // get the categorylist from backend-server
-    //this.getProductbeforImages();
+  onShow: function() {
     this.getProductInfo();
-    
   },
 
   //read the category list

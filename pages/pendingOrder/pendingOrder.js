@@ -243,9 +243,9 @@ Page({
     });
   },
 
-  showMakeOrderError: function() {
+  showMakeOrderError: function(msg = '') {
     wx.showModal({
-      title: '下单失败！',
+      title: '下单失败！ ' + msg,
       showCancel: false
     });
   },
@@ -266,8 +266,8 @@ Page({
       return;
     }
 
-    // this.makeOrder();
-    // return;
+    this.makeOrder();
+    return;
 
     // 预支付
     wx.request({
@@ -376,22 +376,28 @@ Page({
           return;
         }
 
-        // 下单成功
-        wx.showToast({
-          title: '下单成功'
-        });
+        // 成功
+        if (res.data.status == 'success') {
+          wx.showToast({
+            title: '下单成功'
+          });
 
-        // 跳转，默认是拼团列表
-        var strUrl = '../userGroup/userGroup';
-        if (util.prepareOrderInfo.groupBuy < 0) {
-          // 门店订单
-          if (that.data.channel == config.channel.self) {
-            strUrl = '../storeOrder/storeOrder';
+          // 跳转，默认是拼团列表
+          var strUrl = '../userGroup/userGroup';
+          if (util.prepareOrderInfo.groupBuy < 0) {
+            // 门店订单
+            if (that.data.channel == config.channel.self) {
+              strUrl = '../storeOrder/storeOrder';
+            }
+            // 快递订单
+            else {
+              strUrl = '../deliveryOrder/deliveryOrder';
+            }
           }
-          // 快递订单
-          else {
-            strUrl = '../deliveryOrder/deliveryOrder';
-          }
+        }
+        // 失败
+        else {
+          that.showMakeOrderError(res.data.message);
         }
 
         // 跳转到订单列表页面

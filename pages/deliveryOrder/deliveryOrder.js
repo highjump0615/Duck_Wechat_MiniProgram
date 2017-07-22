@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orders:[]
+    orders:[],
+    config: config
   },
 
   onShow: function() {
