@@ -24,6 +24,7 @@ module.exports = {
         init: 5,
         sent: 10,
         received: 15, 
-        refunded: 20
+        refund_requested: 20,
+        refunded: 25
     }
 }

@@ -266,7 +266,7 @@ Page({
       return;
     }
 
-    // this.makeOrder();
+    // this.makeOrder('1111');
     // return;
 
     // 预支付
@@ -299,6 +299,8 @@ Page({
         var nonceStr = response.nonce_str;
         var paySign = md5.hex_md5('appId='+appId+'&nonceStr='+nonceStr+'&package='+pkg+'&signType=MD5&timeStamp='+timeStamp+"&key=5UkDSKPgHQ6cpsUSwxt2lJnixzQkzQeO").toUpperCase();
 
+        var tradeNo = res.data.trade_no;
+
         wx.requestPayment({
           'appId': appId,
           'timeStamp': timeStamp,
@@ -308,7 +310,7 @@ Page({
           'paySign': paySign,
           'success':function(res){
             // 生成订单
-            that.makeOrder();
+            that.makeOrder(tradeNo);
           },
           'fail':function(res){
             wx.showModal({
@@ -334,7 +336,7 @@ Page({
   /**
    * 生成订单
    */
-  makeOrder: function() {
+  makeOrder: function(tradeNo) {
 
     var that = this;
 
@@ -350,6 +352,8 @@ Page({
       channel: this.data.channel,
       desc: this.data.desc,
       price: util.prepareOrderInfo.totalPrice,
+      // 商户订单号
+      trade_no: tradeNo
     };
 
     // 门店

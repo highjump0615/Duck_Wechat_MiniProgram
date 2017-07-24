@@ -95,15 +95,36 @@
   <view class="button-area">
     <view class="total">状态为: {{order.status}}</view>
 
-    <!-- 发快递 -->
+    <!-- 确认收货/提货 -->
     <button class="button appbutton2" 
             bindtap="confirmReceipt" 
-            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent) || (order.channel == config.channel.self && order.status_val == config.orderStatus.init)}}">                    
+            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent) || (order.channel == config.channel.self && order.status_val == config.orderStatus.init)}}">
         确认{{labelReceive}}
     </button>
+    <!-- 申请退款 -->
+    <button class="button appbutton2" 
+            bindtap="requestRefund" 
+            wx:elif="{{order.status_val == config.orderStatus.received}}">
+        申请退款
+    </button>
     <button class="button appbutton2 disabled" wx:else>
-      <view wx:if="{{order.status_val >= config.orderStatus.received}}">返回</view>
+      <view wx:if="{{order.status_val >= config.orderStatus.refund_requested}}">返回</view>
       <view wx:else>确认{{labelReceive}}</view>
     </button>
   </view>
+
+  <!-- 退款理由对话框 -->
+  <modal 
+    class="modal"
+    title="退款理由"
+    hidden="{{!refundModal}}"
+    confirm-text="提交"
+    cancel-text="取消"
+    bindconfirm="submitRefund"
+    bindcancel="cancelRefundModal">
+    <view>
+      <input bindinput="inputReason" placeholder="请输入退款理由"/>
+    </view>
+  </modal>
+
 </view>

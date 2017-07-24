@@ -13,7 +13,9 @@ Page({
   data: {
     order: {},
     labelReceive: '收货',
-    config: config
+    config: config,
+    refundModal: false,
+    refundReason: ''
   },
 
   onLoad: function(option) {
@@ -75,5 +77,80 @@ Page({
       },//请求失败
       complete: function () { }//请求完成后执行的函数
     });
-  }
+  },
+
+  /**
+   * 申请退款
+   */
+  requestRefund: function() {
+    // 打开输入理由对话框
+    this.setData({
+      refundModal: true
+    })
+  },
+
+  /**
+   * 关闭对话框
+   */
+  cancelRefundModal: function() {
+    this.setData({
+      refundModal: false
+    })
+  },
+
+  /**
+   * 提交退款
+   */
+  submitRefund: function() {
+    var that = this;
+
+    wx.request({
+      url: config.api.baseUrl + '/order/refund',//请求地址
+      data: {
+        order_id: gnOrderId,
+        reason: this.data.refundReason
+      },
+      header: {//请求头
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST",//get为默认方法/POST
+      success: function (res) {
+
+        if (res.statusCode > 200) {
+          // 失败
+          wx.showModal({
+            title: '退款申请失败',
+            showCancel: false
+          });
+          
+          return;
+        }
+
+        wx.showToast({
+          title: '申请退款成功'
+        });
+
+        // 返回
+        setTimeout(function() {
+          wx.navigateBack({
+            delta: 1
+          });
+        }, 1000);
+      },
+      fail: function (err) {
+      },//请求失败
+      complete: function () {
+        that.cancelRefundModal();
+      }
+    });
+  },
+
+  /**
+   * 理由input
+   */
+  inputReason: function (e) {
+    this.setData({
+      refundReason: e.detail.value
+    })
+  },
 })
