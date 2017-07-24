@@ -83,7 +83,9 @@
       <view class="content">商品详情</view>
     </view>
     <!-- html显示 -->
-    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    <view class="html-div">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
   </view>
 </view>
 

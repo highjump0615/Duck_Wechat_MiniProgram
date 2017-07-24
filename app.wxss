@@ -412,3 +412,11 @@ text.go-detail {
   text-align: center; 
 } 
 /*toast end*/
+
+page {
+  background: white;
+}
+
+text {
+  font-family: '宋体';
+}

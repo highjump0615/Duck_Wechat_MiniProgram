@@ -6,7 +6,7 @@
 
 #logo-img {
   width: 200px;
-  height: 80px;
+  height: 60px;
 }
 
 swiper.swiper {

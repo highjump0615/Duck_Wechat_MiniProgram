@@ -236,7 +236,7 @@ Page({
         * 4.target为Page对象,一般为this(必填)
         * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
         */
-        WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 5);
+        WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 10);
         
         console.log('productdetail->swiperimages')
         console.log(that.data.swiperImages)

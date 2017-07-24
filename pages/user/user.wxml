@@ -28,7 +28,8 @@
   <view id="customer" class="list-item" bindtap="goCustomerPage">
     <image class="list-img" src="../../images/customer.png"></image>
     <text class="list-name">客服电话</text>
-    <text class="arrow">
-      <text class="phone">{{phone}} </text>></text>
+    <view class="arrow">
+      <text class="phone">{{phone}} </text>>
+    </view>
   </view>
 </view>

@@ -17,6 +17,7 @@
         <text class="price2">
           拼团价: ¥{{gb_price}}
         </text>
+        <text class="go-detail" data-id="{{id}}">详情 ></text>
       </view>
     </view>
   </view>

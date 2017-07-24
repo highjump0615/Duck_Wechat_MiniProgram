@@ -197,3 +197,8 @@ image.question {
 .appbutton2.selected {
   background-color: #287c1c !important;
 }
+
+.html-div {
+  margin-left: 10px;
+  margin-right: 10px;
+}
