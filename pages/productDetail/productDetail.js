@@ -7,6 +7,8 @@ var WxParse = require('../../lib/wxParse/wxParse.js');
 
 var app = getApp();
 
+var timerGroupbuy;
+
 Page({
   /**
    * 页面的初始数据
@@ -25,6 +27,7 @@ Page({
     // loading提示语
     loadingMessage: '',
     productDetails: [],
+    groupBuys: [],
 
     // 图片base url
     baseUrl: config.baseUrl,
@@ -198,6 +201,14 @@ Page({
     })    
   },
 
+  onHide: function() {
+    clearTimeout(timerGroupbuy);
+  },
+
+  onUnload: function() {
+    clearTimeout(timerGroupbuy);
+  },
+
   onShow: function() {
     this.getProductInfo();
   },
@@ -232,6 +243,7 @@ Page({
         
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           productDetails: detail,
+          groupBuys: detail.groupbuys,
           specId: specId,
           thumbnail: res.data.result.thumbnail,
           swiperImages: res.data.result.images,
@@ -246,6 +258,8 @@ Page({
         * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
         */
         WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 10);
+
+        timerGroupbuy = setTimeout(that.updateTimeRemaining, 1000);
         
         console.log('productdetail->swiperimages')
         console.log(that.data.swiperImages)
@@ -253,6 +267,22 @@ Page({
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
+  },
+
+  updateTimeRemaining: function() {
+    console.log('asdf');
+    
+    var detail = this.data.groupBuys;
+    for (var i = 0; i < detail.length; i++) {
+      detail[i].time_remain--;
+      detail[i].time_remain_formatted = util.foramtSeconds(detail[i].time_remain);
+    }
+
+    this.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
+        groupBuys: detail
+    });
+
+    timerGroupbuy = setTimeout(this.updateTimeRemaining, 1000);
   },
 
   /**

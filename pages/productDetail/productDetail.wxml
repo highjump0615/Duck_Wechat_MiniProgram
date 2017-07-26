@@ -55,7 +55,7 @@
 
     <!-- 拼团列表 -->
     <view class="user-area">
-      <block wx:for="{{productDetails.groupbuys}}" wx:for-item="groupbuy">
+      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy">
 
         <view class="user-item">
             <view class="user-image">
