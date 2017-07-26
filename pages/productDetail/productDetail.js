@@ -131,14 +131,14 @@ Page({
   */
   goPending: function (e) {
     // 检查规格
-    if (this.data.specId <= 0) {
-      wx.showModal({
-        title: '请选择规格',
-        showCancel: false
-      });
+    // if (this.data.specId <= 0) {
+    //   wx.showModal({
+    //     title: '请选择规格',
+    //     showCancel: false
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
     // 检查库存
     if (this.data.commodityCount > this.data.productDetails.remain) {
