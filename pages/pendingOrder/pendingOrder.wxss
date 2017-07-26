@@ -14,10 +14,9 @@
 }
 
 .storeAddress .radio-icon {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 18px;
   height: 18px;
   background: #fcfff4;
@@ -38,6 +37,7 @@
   background-color: #eef5ed;
   padding: 6px 20px;
   border-bottom: 1px solid #ddd;
+  position: relative;
 }
 
 .storeAddress .select-area {
@@ -45,12 +45,17 @@
 }
 
 .storeAddress .radio-text {
-  display: inline-block;
-  vertical-align: middle;
-  width: calc(100% - 50px);
+  display: block;
 }
-.storeAddress .radio-text .left {
-  width: calc(100% - 70px);
+.storeAddress .radio-text .store-info {
+  margin-left: 34rpx;
+  margin-right: 150rpx;
+}
+.storeAddress .radio-text .store-location {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 40rpx;
 }
 .storeAddress .radio-text .name {
   padding: 8px 10px 5px 10px;

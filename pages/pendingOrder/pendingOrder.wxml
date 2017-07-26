@@ -69,23 +69,25 @@
     <view class="select-area">
       <scroll-view scroll-y style="height: 270px;">
         <radio-group class="group" bindchange="radioChange">
-          <view class="radio-item" wx:for="{{storeList}}" wx:for-item="store" wx:for-index="index">
+          <label class="radio-text" for="{{store.id}}" wx:for="{{storeList}}" wx:for-item="store" wx:for-index="index">
+          <view class="radio-item" >
             <radio id="{{store.id}}" hidden value="{{store.id}}" checked="{{store.checked}}"></radio>
             <view class="radio-icon">
               <view class="radio-icon-checked" style="opacity:{{store.checked ? 1: 0}}"></view>
             </view>
-            <label class="radio-text" for="{{store.id}}">
-              <view class="left">
+            
+              <view class="store-info">
                 <view class="name">{{store.name}}</view>
                 <view class="address">门店地址: {{store.address}}</view>
                 <view class="phone">联系电话: {{store.phone}}</view>
               </view>
-              <view class="right" data-index="{{index}}" bindtap="goMap">
+              <view class="store-location" data-index="{{index}}" bindtap="goMap">
                 <view class="distance">{{store.distance}}Km</view>
                 <view class="marker"><image src="../../images/marker.png"></image></view>
               </view>
-            </label>
+            
           </view>
+          </label>
         </radio-group>
       </scroll-view>
     </view>
