@@ -10,7 +10,7 @@
 }
 
 swiper.swiper {
-  height: 255rpx;
+  height: 320rpx;
 }
 
 .swiper-img {
@@ -64,7 +64,7 @@ button.scroll-button::after {
 }
 
 .product-desc-list {
-  font-size: 28rpx;
+  font-size: 30rpx;
   height: 104rpx;
 }
 .product-price-list .price1 {

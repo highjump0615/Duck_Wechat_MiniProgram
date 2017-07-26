@@ -9,7 +9,10 @@
 }
 
 .list-item {
-  padding: 10px 15px;
+  padding-left: 50rpx;
+  padding-right: 30rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
   border: 1px solid #eee;
   margin-top: -1px;
   background-color: #fff;
