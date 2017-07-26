@@ -269,9 +269,7 @@ Page({
     })
   },
 
-  updateTimeRemaining: function() {
-    console.log('asdf');
-    
+  updateTimeRemaining: function() {    
     var detail = this.data.groupBuys;
     for (var i = 0; i < detail.length; i++) {
       detail[i].time_remain--;

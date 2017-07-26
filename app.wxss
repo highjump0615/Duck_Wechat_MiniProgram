@@ -108,10 +108,8 @@ button.appbutton2:hover {
 
 text.go-detail {
   color: #68bc5e;
-  position: relative;
   float: right;
-  margin-top: 17.5px;
-  margin-right: 10px;
+  font-size: 30rpx;
 }
 
 .store-item {
