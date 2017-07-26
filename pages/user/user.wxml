@@ -5,28 +5,30 @@
     <image class="profile-img" src="{{myImage}}"></image>
     <view class="profile-name">{{myName}}</view>
   </view>
+
+  <!-- 菜单 -->
   <view id="store" class="list-item" bindtap="goStorePage">
-    <image class="list-img" src="../../images/store.png"></image>
+    <image class="list-img" mode="aspectFit" src="../../images/store.png"></image>
     <text class="list-name">门店自提订单</text>
     <text class="arrow">></text>
   </view>
   <view id="delivery" class="list-item" bindtap="goDeliveryPage">
-    <image class="list-img" src="../../images/delivery.png"></image>
+    <image class="list-img" mode="aspectFit" src="../../images/delivery.png"></image>
     <text class="list-name">快递配送订单</text>
     <text class="arrow">></text>
   </view>
   <view id="we" class="list-item" bindtap="goWePage">
-    <image class="list-img" src="../../images/we.png"></image>
+    <image class="list-img" mode="aspectFit" src="../../images/we.png"></image>
     <text class="list-name">我的拼团</text>
     <text class="arrow">></text>
   </view>
   <view id="address" class="list-item" bindtap="goAddressPage">
-    <image class="list-img" src="../../images/address.png"></image>
+    <image class="list-img" mode="aspectFit" src="../../images/address.png"></image>
     <text class="list-name">管理收货地址</text>
     <text class="arrow">></text>
   </view>
   <view id="customer" class="list-item" bindtap="goCustomerPage">
-    <image class="list-img" src="../../images/customer.png"></image>
+    <image class="list-img" mode="aspectFit" src="../../images/customer.png"></image>
     <text class="list-name">客服电话</text>
     <view class="arrow">
       <text class="phone">{{phone}} </text>>
