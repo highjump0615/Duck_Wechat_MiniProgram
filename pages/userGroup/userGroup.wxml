@@ -5,6 +5,6 @@
 
 <block wx:for="{{orders}}" wx:for-item="order">
   <view class="store-item">
-    <template is="orderitem" data="{{...order}}"></template>
+    <template is="orderitem" data="{{...order, config}}"></template>
   </view>
 </block>

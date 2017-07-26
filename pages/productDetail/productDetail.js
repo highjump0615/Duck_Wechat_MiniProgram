@@ -20,6 +20,7 @@ Page({
     commodityCount: 1,
     groupBuyingHidden: true,
     showLoading: false,
+    specId: 0,
 
     // loading提示语
     loadingMessage: '',
@@ -129,30 +130,35 @@ Page({
     Called when user click '下一步' button
   */
   goPending: function (e) {
-    if (this.data.commodityCount == 0) {
-      var that = this;
+    // 检查规格
+    if (this.data.specId <= 0) {
       wx.showModal({
-        title: '提示',
-        content: '请插入购买数量!',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('confirm')
-          } else if (res.cancel) {
-            that.setData({
-              actionSheetHidden: !that.data.actionSheetHidden
-            })
-            console.log('cancel')
-          }
-        }
-      })
-    } else {
-      this.setData({
-        actionSheetHidden: !this.data.actionSheetHidden
-      })
-      wx.navigateTo({
-        url: '../pendingOrder/pendingOrder'
+        title: '请选择规格',
+        showCancel: false
       });
+
+      return;
     }
+
+    // 检查库存
+    if (this.data.commodityCount > this.data.productDetails.remain) {
+      wx.showModal({
+        title: '库存不够',
+        showCancel: false
+      });
+
+      return;
+    }
+    
+    //
+    // 跳转到下单页面
+    //
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+    wx.navigateTo({
+      url: '../pendingOrder/pendingOrder'
+    });
 
     // 设置数量
     util.prepareOrderInfo.count = this.data.commodityCount;
@@ -214,7 +220,10 @@ Page({
         console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
 
         // 默认选择第一个规格
-        var specId = res.data.result.specs[0].id;
+        var specId = 0;
+        if (res.data.result.specs.length > 0) {
+          specId = res.data.result.specs[0].id;
+        }
 
         var detail = res.data.result;
         for (var i = 0; i < detail.groupbuys.length; i++) {

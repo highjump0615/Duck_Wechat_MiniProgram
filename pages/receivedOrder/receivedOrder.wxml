@@ -62,7 +62,7 @@
     </view>
     <view class="item" style="border: none;">
       <view class="left">
-        商品金额
+        订单金额
       </view>
       <view class="right">
         <text style="color:#db5078">¥{{order.price}}</text>

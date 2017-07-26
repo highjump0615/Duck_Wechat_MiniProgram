@@ -36,7 +36,7 @@
     <view class="price-area">
       <view class="left">
         <view class="total">合计:
-          <text>¥{{price}}</text> (运费 ¥{{deliver_cost}})</view>
+          <text>¥{{price}}</text> (含运费 ¥{{deliver_cost}})</view>
         <view class="time">下单时间: {{created_at}}</view>
         <view class="store" wx:if="{{channel == 0}}">快递配送</view>
         <view class="store" wx:else>门店自提: {{store_name}}</view>
@@ -51,11 +51,11 @@
       <view class="left">
         人数: {{groupbuy.persons}}
       </view>
-      <view class="right" wx:if="{{status_val >= config.orderStatus.init}}">
-        己结束: 拼团成功
-      </view>
-      <view class="right" wx:elif="{{status_val == config.orderStatus.cancelled}}">
+      <view class="right" wx:if="{{status_val == config.orderStatus.cancelled || (status_val == config.orderStatus.refunded && refund_reason == 1)}}">
         已到期：拼团失败
+      </view>
+      <view class="right" wx:elif="{{status_val >= config.orderStatus.init}}">
+        己结束: 拼团成功
       </view>
       <view class="right" wx:else>
         倒计时: {{remain_time_formatted}}
