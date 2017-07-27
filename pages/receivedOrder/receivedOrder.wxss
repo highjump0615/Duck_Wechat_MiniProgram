@@ -19,3 +19,14 @@
   line-height: 22px;
 } 
 
+
+/* 买家留言 */
+.desc {
+  display: inline-block;
+}
+.desc .title {
+  float: left;
+}
+.desc .content {
+  margin-left: 140rpx;
+}

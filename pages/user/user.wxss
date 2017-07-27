@@ -33,7 +33,7 @@
 }
 
 .arrow .phone {
-  font-size: 14px;
+  font-size: 32rpx;
 }
 
 #address {

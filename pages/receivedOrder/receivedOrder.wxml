@@ -52,11 +52,11 @@
     </view>
   </view>
   <view class="detail-area">
-    <view class="item">
-      <view class="left">
+    <view class="item desc">
+      <view class="title">
         买家留言
       </view>
-      <view class="right">
+      <view class="content">
         {{order.desc}}
       </view>
     </view>
