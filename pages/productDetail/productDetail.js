@@ -7,6 +7,8 @@ var WxParse = require('../../lib/wxParse/wxParse.js');
 
 var app = getApp();
 
+var gnProductId;
+
 var timerGroupbuy;
 
 Page({
@@ -32,6 +34,18 @@ Page({
     // 图片base url
     baseUrl: config.baseUrl,
   },
+  
+  /**
+   * 分享
+   */
+  onShareAppMessage: function() {
+    return {
+      title: this.data.productDetails.name,
+      desc: this.data.productDetails.name,
+      path: '/pages/productDetail/productDetail?id=' + gnProductId
+    };
+  },
+
   /*
     Called when user click question mark in 七天包退, 十四天包换 to show modal
   */
@@ -184,8 +198,8 @@ Page({
   /*
   * load function
   */
-  onLoad: function () {
-    console.log('onLoad')
+  onLoad: function (option) {
+    gnProductId = option.id;
 
     // 获取当前位置
     wx.getLocation({
@@ -212,12 +226,12 @@ Page({
 
   onShow: function() {
     this.getProductInfo();
-  },
+  }, 
 
   //read the category list
   getProductInfo: function () {
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
-    var productUrl = config.api.baseUrl + '/product/detail/' + util.productId
+    var productUrl = config.api.baseUrl + '/product/detail/' + gnProductId
     wx.request({
       url: productUrl,//请求地址
       data: {

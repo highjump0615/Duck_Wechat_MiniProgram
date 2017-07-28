@@ -26,7 +26,10 @@ App({
       },
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
-    })
+    });
+
+    //调用应用实例的方法获取全局数据
+    this.getUserInfo();
 
     // 收件人
     this.receiver = wx.getStorageSync('receiver');
