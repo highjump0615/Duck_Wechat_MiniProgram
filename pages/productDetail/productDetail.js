@@ -31,10 +31,6 @@ Page({
 
     // 图片base url
     baseUrl: config.baseUrl,
-
-    // 提示
-    noticeRefund: app.setting.noticeRefund,
-    noticeGroup: app.setting.noticeGroup
   },
   /*
     Called when user click question mark in 七天包退, 十四天包换 to show modal
@@ -198,7 +194,12 @@ Page({
         app.globalData.userInfo.latitude = res.latitude;
         app.globalData.userInfo.longitude = res.longitude;
       }
-    })    
+    });
+
+    this.setData({
+      noticeRefund: app.setting.noticeRefund,
+      noticeGroup: app.setting.noticeGroup
+    })
   },
 
   onHide: function() {

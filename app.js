@@ -11,31 +11,22 @@ App({
     var that = this;
 
     // 获取基础参数
-    var settings = wx.getStorageSync('setting');
-    if (!settings) {
-      wx.request({
-        url: config.api.baseUrl + '/system/info',//请求地址
-        data: {
-        },
-        header: {//请求头
-          "Content-Type": "applciation/json"
-        },
-        method: "GET",//get为默认方法/POST
-        success: function (res) {
-          that.setting.customerPhone = res.data.result.phone;
-          that.setting.noticeRefund = res.data.result.notice_refund;
-          that.setting.noticeGroup = res.data.result.notice_groupbuy;
-
-          // 保存
-          wx.setStorageSync('setting', that.setting)
-        },
-        fail: function (err) { },//请求失败
-        complete: function () { }//请求完成后执行的函数
-      })
-    }
-    else {
-      this.setting = settings;
-    }
+    wx.request({
+      url: config.api.baseUrl + '/system/info',//请求地址
+      data: {
+      },
+      header: {//请求头
+        "Content-Type": "applciation/json"
+      },
+      method: "GET",//get为默认方法/POST
+      success: function (res) {
+        that.setting.customerPhone = res.data.result.phone;
+        that.setting.noticeRefund = res.data.result.notice_refund;
+        that.setting.noticeGroup = res.data.result.notice_groupbuy;
+      },
+      fail: function (err) { },//请求失败
+      complete: function () { }//请求完成后执行的函数
+    })
 
     // 收件人
     this.receiver = wx.getStorageSync('receiver');
