@@ -19,9 +19,7 @@ Page({
     console.log('onLoad')
     // get the categorylist from backend-server
  
-     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo();
+    var that = this;
 
     // get the ads 
     wx.request({

@@ -9,7 +9,7 @@
     </view>
   </view>
   
-  <view class="commodity-item">
+  <view data-id="{{product_id}}" class="commodity-item" bindtap="productView">
     <view class="commodity-image">
       <image src="{{product_image}}"></image>
     </view>

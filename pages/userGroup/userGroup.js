@@ -49,6 +49,15 @@ Page({
     wx.navigateTo({
       url: '../receivedOrder/receivedOrder?id=' + e.target.dataset.id
     });
+  },
+
+  /**
+   * 跳转到商品详情页面
+   */
+  productView: function(e) {
+    wx.navigateTo({
+      url: '../productDetail/productDetail?id=' + e.currentTarget.dataset.id
+    });
   }
 
 

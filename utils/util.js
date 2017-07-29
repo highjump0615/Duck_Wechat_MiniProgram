@@ -42,7 +42,6 @@ module.exports = {
 }
 
 var groupBuyMode = false;
-var productId = 0; //when user click the detail button, store product id.
 var userInfo = [];
 var productDetails = [];
 
