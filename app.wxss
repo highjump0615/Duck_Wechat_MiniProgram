@@ -422,3 +422,20 @@ page {
 text {
   font-family: '宋体';
 }
+
+/* 拼团用户头像列表 */ 
+.customer {
+  height: 60rpx;
+  overflow: hidden;
+  padding-left: 20rpx;
+}
+.text-count {
+  float: left; 
+  line-height: 60rpx
+}
+.customer image {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 10rpx;
+  border-radius: 50%;
+}

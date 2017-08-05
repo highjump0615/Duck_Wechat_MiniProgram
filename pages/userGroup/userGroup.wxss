@@ -1,4 +1,15 @@
 /* pages/userGroup/userGroup.wxss */
 .count-area {
   border-top: 1px solid #eee;
+  display: inline-block;
+  line-height: 60rpx;
+  width: 100%;
+}
+
+.count-area .left {
+  float: left;
+}
+.count-area .customer {
+  max-width: calc(100% - 350rpx);
+  float:left;
 }

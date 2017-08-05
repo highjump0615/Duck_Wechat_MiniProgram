@@ -84,10 +84,11 @@
       </view>
     </view>
     <view class="item" style="border: none;" wx:if="{{order.is_groupbuy}}">
-      <view class="left">
-        参与人数: {{order.groupbuy_persons}}
+      <view class="left text-count" >
+        参与人数: {{order.groupbuys.length}}
       </view>
-      <view class="right">
+      <view class="customer">
+        <image src="{{customer.image_url}}" wx:for="{{order.groupbuys}}" wx:for-item="customer"></image>
       </view>
     </view>
   </view>

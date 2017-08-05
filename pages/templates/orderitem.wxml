@@ -47,10 +47,17 @@
         </view>
       </view>
     </view>
+
+    <!-- 拼团数据 -->
     <view class="count-area" wx:if="{{is_groupbuy}}">
       <view class="left">
-        人数: {{groupbuy.persons}}
+        人数: {{groupbuy.persons.length}}
       </view>
+
+      <view class="customer">
+        <image src="{{customer.image_url}}" wx:for="{{groupbuy.persons}}" wx:for-item="customer"></image>
+      </view>
+
       <view class="right" wx:if="{{status_val == config.orderStatus.cancelled || (status_val == config.orderStatus.refunded && refund_reason == 1)}}">
         已到期：拼团失败
       </view>
@@ -61,5 +68,6 @@
         倒计时: {{remain_time_formatted}}
       </view>
     </view>
+
   </view>
 </template>

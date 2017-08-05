@@ -266,8 +266,8 @@ Page({
       return;
     }
 
-    // this.makeOrder('1111');
-    // return;
+    this.makeOrder('1111');
+    return;
 
     // 预支付
     wx.request({
