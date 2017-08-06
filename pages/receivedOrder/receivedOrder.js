@@ -86,8 +86,8 @@ Page({
     var store = this.data.order.store;
 
     wx.openLocation({
-      latitude: store.latitude,
-      longitude: store.longitude,
+      latitude: parseFloat(store.latitude),
+      longitude: parseFloat(store.longitude),
       scale: 12,
       name: store.name,
       address: store.address,

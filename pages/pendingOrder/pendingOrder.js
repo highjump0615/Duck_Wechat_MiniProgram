@@ -122,12 +122,18 @@ Page({
     var store = this.data.storeList[nIndex];
 
     wx.openLocation({
-      latitude: store.latitude,
-      longitude: store.longitude,
+      latitude: parseFloat(store.latitude),
+      longitude: parseFloat(store.longitude),
       scale: 12,
       name: store.name,
       address: store.address,
-      success: function() {}
+      success: function(res) {},
+      fail: function(err) {
+        wx.showModal({
+          content: err.errMsg,
+          showCancel: false
+        });
+      }
     });
     
     // console.log(e.target.dataset.id);
