@@ -203,3 +203,21 @@ image.question {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.group-price {
+  width: 100%;
+  display: inline-block;
+}
+.groupbuy-desc {
+  float: left;
+}
+.groupbuy-invite {
+  float: right;
+}
+.groupbuy-invite button {
+  font-size: 26rpx;
+  line-height: 60rpx;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 10rpx;
+}

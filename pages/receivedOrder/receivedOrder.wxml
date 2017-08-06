@@ -34,6 +34,7 @@
     <view class="right" wx:else>门店自提</view>
   </view>
 
+  <!-- 地址/门店 -->
   <view class="address-area">
     <view class="left">
       <view class="name">
@@ -45,12 +46,13 @@
       <view class="address" wx:else>{{store.name}} {{store.phone}}</view>
 
       <view class="store" wx:if="{{order.channel == 0}}">详细地址 {{order.address}}</view>
-      <view class="store" wx:else>门店地址 {{order.store.address}}</view>
+      <view class="store" wx:else bindtap="navigateMap">门店地址 {{order.store.address}}</view>
     </view>
     <view class="right">
       
     </view>
   </view>
+  
   <view class="detail-area">
     <view class="item desc">
       <view class="title">
@@ -94,7 +96,12 @@
   </view>
   
   <view class="button-area">
-    <view class="total">状态为: {{order.status}}</view>
+    <view class="total">
+      状态为: {{order.status}}
+      <text wx:if="{{order.status_val == config.orderStatus.refunded}}">
+        （将退款至微信零钱，请查收）
+      </text>
+    </view>
 
     <!-- 确认收货/提货 -->
     <button class="button appbutton2" 

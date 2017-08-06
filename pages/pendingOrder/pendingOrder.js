@@ -128,7 +128,7 @@ Page({
       name: store.name,
       address: store.address,
       success: function() {}
-    })
+    });
     
     // console.log(e.target.dataset.id);
     // wx.navigateTo({
@@ -266,8 +266,8 @@ Page({
       return;
     }
 
-    this.makeOrder('1111');
-    return;
+    // this.makeOrder('1111');
+    // return;
 
     // 预支付
     wx.request({

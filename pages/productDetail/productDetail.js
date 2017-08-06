@@ -70,6 +70,17 @@ Page({
       modalFireHidden: false
     })
   },
+
+  /**
+   * 邀请好友弹窗
+   */
+  modalInvite: function() {
+    wx.showModal({
+        title: '邀请好友',
+        content: '点击小程序右上方“三个点”按钮，点击“转发”，一起邀请你的小伙伴来拼团吧。',
+        showCancel: false
+      });
+  },
   /*
     Called when user click 确定 to hide modal
   */

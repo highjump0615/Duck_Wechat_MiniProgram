@@ -49,7 +49,7 @@
     </view>
 
     <!-- 拼团数据 -->
-    <view class="count-area" wx:if="{{is_groupbuy}}">
+    <view class="count-area" wx:if="{{groupbuy.persons}}">
       <view class="left">
         人数: {{groupbuy.persons.length}}
       </view>

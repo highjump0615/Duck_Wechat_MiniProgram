@@ -80,6 +80,22 @@ Page({
   },
 
   /**
+   * 转到地图
+   */
+  navigateMap: function() {
+    var store = this.data.order.store;
+
+    wx.openLocation({
+      latitude: store.latitude,
+      longitude: store.longitude,
+      scale: 12,
+      name: store.name,
+      address: store.address,
+      success: function() {}
+    })
+  },
+
+  /**
    * 申请退款
    */
   requestRefund: function() {

@@ -31,25 +31,32 @@
       <text class="right" style="min-width:60px;">库存: <text>{{productDetails.remain}}</text></text>
     </view>
     <view class="item" style="color: #bbb;">
-      <text class="left">七天包退, 十四天包换</text>
+      <text class="left">配送说明</text>
       <view class="right" bindtap="modalRetreat">
         <image class="question" src="../../images/question.png"></image>
       </view>
     </view>
   </view>
+
   <view class="group-area">
     <view class="info-area">
       <view class="item" style="border: none;">
-        <text class="left">火热拼团</text>
+        <text class="left">拼团说明</text>
         <view class="right" bindtap="modalFire">
           <image class="question" src="../../images/question.png"></image>
         </view>
       </view>
-      <view class="item">
-        <view class="left">
-          <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+
+      <view class="item group-price">
+        <view class="groupbuy-desc">
+          <view class="left">
+            <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+          </view>
+          <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
         </view>
-        <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
+        <view class="groupbuy-invite">
+          <button class="button appbutton2" bindtap="modalInvite">邀请好友</button>
+        </view>
       </view>
     </view>
 
