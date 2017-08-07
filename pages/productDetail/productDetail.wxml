@@ -110,10 +110,10 @@
 </view>
 
 <!--Prepare modals-->
-<modal title="七天包退, 十四天包换" class="modal" hidden="{{modalRetreatHidden}}" no-cancel bindconfirm="modalRetreatChange" bindcancel="modalRetreatChange">
+<modal title="配送说明" class="modal" hidden="{{modalRetreatHidden}}" no-cancel bindconfirm="modalRetreatChange" bindcancel="modalRetreatChange">
   <view> {{noticeRefund}} </view>
 </modal>
-<modal title="火热拼团" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
+<modal title="拼团说明" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
   <view> {{noticeGroup}} </view>
 </modal>
 
@@ -173,8 +173,12 @@
         </button>
       </view>
     </view>
-    <button class="button appbutton2 large" bindtap="goPending">
-      下一步
-    </button>
+    
+    <form bindsubmit="goPending" report-submit="true">
+      <button form-type="submit" class="button appbutton2 large">
+        下一步
+      </button>
+    </form>
+
   </view>
 </action-sheet>

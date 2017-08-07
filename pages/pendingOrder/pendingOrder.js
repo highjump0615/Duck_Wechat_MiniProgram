@@ -6,6 +6,8 @@ var md5 = require('../../lib/md5.js')
 var app = getApp();
 
 var gnStoreId = 0;
+var gstrFormId;
+var gstrFormIdGroup;
 
 /**
  * 计算距离
@@ -144,8 +146,10 @@ Page({
   /*
   * load function
   */
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
+
+    gstrFormIdGroup = options.form;
 
     // 规格
     var strSpec = '';
@@ -261,6 +265,8 @@ Page({
   */
   submitOrder: function (e) {
     var that = this;
+    
+    gstrFormId = e.detail.formId;
 
     // 确认收件人信息
     if (!this.data.receiver) {
@@ -359,7 +365,9 @@ Page({
       desc: this.data.desc,
       price: util.prepareOrderInfo.totalPrice,
       // 商户订单号
-      trade_no: tradeNo
+      trade_no: tradeNo,
+      formid: gstrFormId,
+      formid_group: gstrFormIdGroup
     };
 
     // 门店

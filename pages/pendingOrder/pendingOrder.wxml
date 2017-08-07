@@ -131,9 +131,11 @@
   <!-- 提交 -->
   <view class="button-area">
     <view class="total">总计: ¥{{totalPrice}}</view>
-    <button class="button appbutton2" bindtap="submitOrder">
+    <form bindsubmit="submitOrder" report-submit="true">
+      <button form-type="submit" class="button appbutton2">
         提交订单
-    </button>
+      </button>
+    </form>
   </view>
 
 </view>

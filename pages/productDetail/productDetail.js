@@ -181,7 +181,7 @@ Page({
       actionSheetHidden: !this.data.actionSheetHidden
     })
     wx.navigateTo({
-      url: '../pendingOrder/pendingOrder'
+      url: '../pendingOrder/pendingOrder?form=' + e.detail.formId
     });
 
     // 设置数量
