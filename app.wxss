@@ -301,7 +301,7 @@ text.go-detail {
 
 .pending-item .address-area {
   font-size: 14px;
-  padding: 30px 20px;
+  padding: 30px 40rpx;
   background-color: #eef5ed;
 }
 

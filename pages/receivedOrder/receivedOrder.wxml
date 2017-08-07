@@ -36,7 +36,7 @@
 
   <!-- 地址/门店 -->
   <view class="address-area">
-    <view class="left">
+    <view class="view-address">
       <view class="name">
         <text>{{order.name}}</text>
         <text style="margin-left: 10px">{{order.phone}}</text>
@@ -46,10 +46,10 @@
       <view class="address" wx:else>{{store.name}} {{store.phone}}</view>
 
       <view class="store" wx:if="{{order.channel == 0}}">详细地址 {{order.address}}</view>
-      <view class="store" wx:else bindtap="navigateMap">门店地址 {{order.store.address}}</view>
+      <view class="store" wx:else>门店地址 {{order.store.address}}</view>
     </view>
-    <view class="right">
-      
+    <view class="view-map" bindtap="navigateMap" wx:if="{{order.channel == 1}}">
+      <image src="../../images/marker.png"></image>
     </view>
   </view>
   

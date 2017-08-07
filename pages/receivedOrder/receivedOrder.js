@@ -91,8 +91,14 @@ Page({
       scale: 12,
       name: store.name,
       address: store.address,
-      success: function() {}
-    })
+      success: function() {},
+      fail: function(err) {
+        wx.showModal({
+          content: err.errMsg,
+          showCancel: false
+        });
+      }
+    });
   },
 
   /**

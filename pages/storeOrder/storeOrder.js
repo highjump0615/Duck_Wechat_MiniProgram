@@ -19,6 +19,12 @@ Page({
 
     var that = this;
 
+    wx.showToast({
+      title: '正在加载...',
+      icon: 'loading',
+      duration: 1000
+    });
+
     // 获取快递订单
     wx.request({
       url: config.api.baseUrl + '/orders/self',//请求地址
