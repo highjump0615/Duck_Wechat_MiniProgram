@@ -72,7 +72,8 @@ Page({
       deliveryActive: 'active',
       storeActive: '',
       storeHidden: false,
-      channel: config.channel.delivery
+      channel: config.channel.delivery,
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice) + parseFloat(this.data.productDetails.price_deliver)
     })
   },
   /*
@@ -83,7 +84,8 @@ Page({
       deliveryActive: '',
       storeActive: 'active',
       storeHidden: true,
-      channel: config.channel.self
+      channel: config.channel.self,
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice)
     })
   },
   /*
@@ -175,7 +177,7 @@ Page({
       priceSum: util.prepareOrderInfo.count * dPrice, 
 
       // 价格总计
-      totalPrice: util.prepareOrderInfo.totalPrice
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice) + parseFloat(util.productDetails.price_deliver)
     })
     
     

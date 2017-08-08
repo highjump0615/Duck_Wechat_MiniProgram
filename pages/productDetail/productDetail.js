@@ -194,7 +194,7 @@ Page({
       dPrice = this.data.productDetails.gb_price;
     }
     
-    util.prepareOrderInfo.totalPrice = parseFloat(this.data.commodityCount * dPrice) + parseFloat(this.data.productDetails.price_deliver);
+    util.prepareOrderInfo.totalPrice = parseFloat(this.data.commodityCount * dPrice);
     util.productDetails = this.data.productDetails;
 
     console.log('go buy now -->');
