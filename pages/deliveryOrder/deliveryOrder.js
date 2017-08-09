@@ -11,7 +11,8 @@ Page({
    */
   data: {
     orders:[],
-    config: config
+    config: config,
+    showEmptyNotice: false
   },
 
   onShow: function() {
@@ -30,7 +31,8 @@ Page({
       method: "GET",//get为默认方法/POST
       success: function (res) {
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-          orders: res.data.result
+          orders: res.data.result,
+          showEmptyNotice: true
         })
       },
       fail: function (err) { },//请求失败

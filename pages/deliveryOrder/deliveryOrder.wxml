@@ -2,8 +2,13 @@
 
 <import src="../templates/orderitem.wxml" />
 
+<view wx:if="{{orders.length > 0}}">
 <block wx:for="{{orders}}" wx:for-item="order">
   <view class="store-item">
     <template is="orderitem" data="{{...order}}"></template>
   </view>
 </block>
+</view>
+<view wx:elseif="{{showEmptyNotice}}" class="no-notice">
+  <text>您暂时还没有快递配送订单</text>
+</view>

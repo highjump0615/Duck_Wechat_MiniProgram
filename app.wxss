@@ -439,3 +439,10 @@ text {
   margin-left: 10rpx;
   border-radius: 50%;
 }
+
+.no-notice {
+  text-align: center;
+  margin-top: 300rpx;
+  font-size: 28rpx;
+  color: #a0a0a0;
+}
