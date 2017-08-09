@@ -52,7 +52,9 @@ Page({
     storeList: [],
     // 配送渠道
     channel: config.channel.delivery,
-    desc: ''
+    desc: '',
+    name: app.receiver.name,
+    phone: app.receiver.phone,
   },
   /**
    * 生命周期函数--监听页面显示
