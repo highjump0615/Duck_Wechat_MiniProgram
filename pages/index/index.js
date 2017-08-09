@@ -23,7 +23,7 @@ Page({
 
     // get the ads 
     wx.request({
-      url: 'https://hly.weifengkeji.top/public/api/v1/ads',//请求地址
+      url: config.api.baseUrl + '/ads',//请求地址
       data: {
       },
       header: {//请求头
@@ -49,7 +49,7 @@ Page({
   getCategory: function () {//read the category list
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
     wx.request({
-      url: 'https://hly.weifengkeji.top/public/api/v1/product/categories',//请求地址
+      url: config.api.baseUrl + '/product/categories',//请求地址
       data: {
       },
       header: {//请求头
@@ -76,7 +76,7 @@ Page({
   getProductList: function (category) {    
     var that = this;
 
-    var getCategoryurl = 'https://hly.weifengkeji.top/public/api/v1/products/' + category;
+    var getCategoryurl = config.api.baseUrl + '/products/' + category;
 
     wx.request({
       url: getCategoryurl,//请求地址

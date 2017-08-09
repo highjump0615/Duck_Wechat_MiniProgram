@@ -188,7 +188,7 @@ Page({
     console.log('<---');
 
     // get the store list
-    var storeUrl = 'https://hly.weifengkeji.top/public/api/v1/stores'
+    var storeUrl = config.api.baseUrl + '/stores';
     wx.request({
       url: storeUrl,//请求地址
       data: {},

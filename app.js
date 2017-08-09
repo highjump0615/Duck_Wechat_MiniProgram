@@ -55,7 +55,7 @@ App({
 
                // get the customer id
               wx.request({
-                url: 'https://hly.weifengkeji.top/public/api/v1/customer/set',//请求地址
+                url: config.api.baseUrl + '/customer/set',//请求地址
                 data: {
                   login_code: strLoginCode,
                   name: res.userInfo.nickName,
