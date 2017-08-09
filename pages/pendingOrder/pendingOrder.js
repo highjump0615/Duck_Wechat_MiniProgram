@@ -191,7 +191,10 @@ Page({
     var storeUrl = config.api.baseUrl + '/stores';
     wx.request({
       url: storeUrl,//请求地址
-      data: {},
+      data: {
+        latitude: app.globalData.userInfo.latitude,
+        longitude: app.globalData.userInfo.longitude
+      },
       header: {//请求头
         "Content-Type": "applciation/json"
       },
