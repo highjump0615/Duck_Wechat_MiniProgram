@@ -271,13 +271,25 @@ Page({
     gstrFormId = e.detail.formId;
 
     // 确认收件人信息
-    if (!this.data.receiver) {
-      wx.showModal({
-        title: '请输入收件人信息',
-        showCancel: false
-      });
+    if (this.data.channel == config.channel.delivery) {
+      if (!this.data.receiver) {
+        wx.showModal({
+          title: '请输入收件人信息',
+          showCancel: false
+        });
 
-      return;
+        return;
+      }
+    }
+    else {
+      if (!this.data.name || !this.data.phone) {
+        wx.showModal({
+          title: '请输入提货人信息',
+          showCancel: false
+        });
+
+        return;
+      }
     }
 
     // this.makeOrder('1111');
