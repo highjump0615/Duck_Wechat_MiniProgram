@@ -36,7 +36,8 @@
     <view class="price-area">
       <view class="left">
         <view class="total">合计:
-          <text>¥{{price}}</text> (含运费 ¥{{deliver_cost}})</view>
+          <text>¥{{price}}</text><text wx:if="{{channel == 0}}"> (含运费 ¥{{deliver_cost}})</text>
+        </view>
         <view class="time">下单时间: {{created_at}}</view>
         <view class="store" wx:if="{{channel == 0}}">快递配送</view>
         <view class="store" wx:else>门店自提: {{store_name}}</view>

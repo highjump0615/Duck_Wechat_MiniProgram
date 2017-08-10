@@ -24,7 +24,8 @@ Page({
     wx.request({
       url: config.api.baseUrl + '/orders/groupbuy',//请求地址
       data: {
-        customer_id: app.globalData.userInfo.customerId
+        // customer_id: app.globalData.userInfo.customerId
+        customer_id: 6
       },
       header: {//请求头
         "Content-Type": "applciation/json"
@@ -38,7 +39,7 @@ Page({
 
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           orders: orders,
-          showEmptyNotice: true
+          showEmptyNotice: res.data.result.length <= 0
         })
       },
       fail: function (err) { },//请求失败

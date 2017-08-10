@@ -32,7 +32,7 @@ Page({
       success: function (res) {
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           orders: res.data.result,
-          showEmptyNotice: true
+          showEmptyNotice: res.data.result.length <= 0
         })
       },
       fail: function (err) { },//请求失败

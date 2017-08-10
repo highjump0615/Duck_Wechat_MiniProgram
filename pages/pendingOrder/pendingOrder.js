@@ -375,8 +375,8 @@ Page({
       product_id: util.productDetails.id,
       count: this.data.buyCnt,
       // 收件人
-      name: this.data.receiver.name,
-      phone: this.data.receiver.phone,
+      name: this.data.name,
+      phone: this.data.phone,
       // 规格
       spec_id: util.prepareOrderInfo.specId,
       channel: this.data.channel,
