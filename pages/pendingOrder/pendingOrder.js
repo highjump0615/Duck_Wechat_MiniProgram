@@ -374,9 +374,6 @@ Page({
       customer_id: app.globalData.userInfo.customerId,
       product_id: util.productDetails.id,
       count: this.data.buyCnt,
-      // 收件人
-      name: this.data.name,
-      phone: this.data.phone,
       // 规格
       spec_id: util.prepareOrderInfo.specId,
       channel: this.data.channel,
@@ -390,13 +387,20 @@ Page({
 
     // 门店
     if (this.data.channel == config.channel.self) {
-      paramData.store_id = gnStoreId
+      paramData.store_id = gnStoreId;
+      // 收件人
+      paramData.name = this.data.name;
+      paramData.phone = this.data.phone;
     }
     else {
       // 地址
       paramData.address = this.data.receiver.address;
       paramData.area = this.data.receiver.area;
-      paramData.zipcode = this.data.receiver.zipcode;
+      paramData.zipcode = this.data.receiver.zipcode ? this.data.receiver.zipcode : '';
+
+      // 收件人
+      paramData.name = app.receiver.name;
+      paramData.phone = app.receiver.phone;
     }
 
     // 拼团

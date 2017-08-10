@@ -24,8 +24,7 @@ Page({
     wx.request({
       url: config.api.baseUrl + '/orders/groupbuy',//请求地址
       data: {
-        // customer_id: app.globalData.userInfo.customerId
-        customer_id: 6
+        customer_id: app.globalData.userInfo.customerId
       },
       header: {//请求头
         "Content-Type": "applciation/json"
