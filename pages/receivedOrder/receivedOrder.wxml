@@ -89,7 +89,7 @@
       <view class="left text-count" >
         参与人数: {{order.groupbuys.length}}
       </view>
-      <view class="customer">
+      <view class="customer" style="margin-left:160rpx;">
         <image src="{{customer.image_url}}" wx:for="{{order.groupbuys}}" wx:for-item="customer"></image>
       </view>
     </view>

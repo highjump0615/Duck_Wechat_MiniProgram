@@ -10,6 +10,6 @@
   float: left;
 }
 .count-area .customer {
-  max-width: calc(100% - 350rpx);
+  max-width: calc(100% - 330rpx);
   float:left;
 }

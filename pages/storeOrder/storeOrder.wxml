@@ -9,6 +9,6 @@
   </view>
 </block>
 </view>
-<view wx:elseif="{{showEmptyNotice}}" class="no-notice">
+<view wx:if="{{showEmptyNotice}}" class="no-notice">
   <text>您暂时还没有门店自提订单</text>
 </view>

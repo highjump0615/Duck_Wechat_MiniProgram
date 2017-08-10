@@ -425,8 +425,6 @@ text {
 
 /* 拼团用户头像列表 */ 
 .customer {
-  height: 60rpx;
-  overflow: hidden;
   padding-left: 20rpx;
 }
 .text-count {
