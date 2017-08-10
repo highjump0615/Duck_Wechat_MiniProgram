@@ -306,7 +306,7 @@ Page({
       data: {
         product_id: util.productDetails.id,
         customer_id: app.globalData.userInfo.customerId,
-        price: util.prepareOrderInfo.totalPrice
+        price: this.data.totalPrice
       },
       header: {//请求头
         "Content-Type": "application/x-www-form-urlencoded"
