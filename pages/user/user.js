@@ -26,6 +26,16 @@ Page({
       url: '../userGroup/userGroup'
     });
   },
+
+  /**
+   * 管理收货地址
+   */
+  goAddressPage: function() {
+    wx.navigateTo({
+      url: '../editUserAddress/editUserAddress'
+    });
+  },
+
   /**
    * 拨打电话
    */

@@ -11,7 +11,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orders:[]
+    orders:[],
+    config: config,
+    showEmptyNotice: false
   },
 
   onLoad: function() {
@@ -35,7 +37,8 @@ Page({
         }
 
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-          orders: orders
+          orders: orders,
+          showEmptyNotice: res.data.result.length <= 0
         })
       },
       fail: function (err) { },//请求失败
@@ -47,6 +50,15 @@ Page({
     // 跳转到订单详情页面
     wx.navigateTo({
       url: '../receivedOrder/receivedOrder?id=' + e.target.dataset.id
+    });
+  },
+
+  /**
+   * 跳转到商品详情页面
+   */
+  productView: function(e) {
+    wx.navigateTo({
+      url: '../productDetail/productDetail?id=' + e.currentTarget.dataset.id
     });
   }
 

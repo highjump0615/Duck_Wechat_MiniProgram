@@ -19,13 +19,11 @@ Page({
     console.log('onLoad')
     // get the categorylist from backend-server
  
-     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo();
+    var that = this;
 
     // get the ads 
     wx.request({
-      url: 'https://hly.weifengkeji.top/public/api/v1/ads',//请求地址
+      url: config.api.baseUrl + '/ads',//请求地址
       data: {
       },
       header: {//请求头
@@ -46,13 +44,12 @@ Page({
 
     // get the category
     this.getCategory();
-    this.firstCategory();
   },
 
   getCategory: function () {//read the category list
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
     wx.request({
-      url: 'https://hly.weifengkeji.top/public/api/v1/product/categories',//请求地址
+      url: config.api.baseUrl + '/product/categories',//请求地址
       data: {
       },
       header: {//请求头
@@ -60,26 +57,27 @@ Page({
       },
       method: "GET",//get为默认方法/POST
       success: function (res) {
-        console.log('submit success');
-        console.log(res.data);//res.data相当于ajax里面的data,为后台返回的数据
+        var categories = res.data.result;
 
-        that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
+        // 设置显示数据
+        that.setData({
 　　　　　　buttons: res.data.result
         })
+
+        // 获取第一个分类的商品
+        if (categories.length > 0) {
+          that.getProductList(categories[0].id);
+        }
       },
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
   },
-  firstCategory: function () {
-    
+  getProductList: function (category) {    
     var that = this;
-    var categoryID = 1;
-    var imagePath;
-    var app = getApp();
-    var getCategoryurl = 'https://hly.weifengkeji.top/public/api/v1/products/' + categoryID;
-    console.log(getCategoryurl);
-    console.log('111->>>first category');
+
+    var getCategoryurl = config.api.baseUrl + '/products/' + category;
+
     wx.request({
       url: getCategoryurl,//请求地址
       data: {
@@ -90,9 +88,6 @@ Page({
       },
       method: "GET",//get为默认方法/POST
       success: function (res) {
-        console.log('first category');
-        console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
-
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           products: res.data.result
         })
@@ -102,45 +97,26 @@ Page({
     })
 
   },
-// get the prodcut's detail information
+  // get the prodcut's detail information
   clickCategory: function (e) { 
-    console.log(e.target.dataset.id);
-    var that = this;
-    var categoryID = e.target.dataset.id;
-    var imagePath;
-    var app = getApp();
-    var getCategoryurl = 'https://hly.weifengkeji.top/public/api/v1/products/'+categoryID;
-    console.log(getCategoryurl);
-    console.log('111->>>get the product list of one category');
-    wx.request({
-      url: getCategoryurl,//请求地址
-      data: {
-          
-      },
-      header: {//请求头
-        "Content-Type": "applciation/json"
-      },
-      method: "GET",//get为默认方法/POST
-      success: function (res) {
-        console.log('get the product list of one category');
-        console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
-        //console.log(res.data.imageUrl);//res.data相当于ajax里面的data,为后台返回的数据
-
-        that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
-          products : res.data.result
-        })
-      },
-      fail: function (err) { },//请求失败
-      complete: function () { }//请求完成后执行的函数
-    })
+    this.getProductList(e.target.dataset.id);
   },
 
-  detailClick: function (e) {
-    var that = this;
-    util.productId = e.target.dataset.id;
-    console.log(util.productId);
+  /**
+   * 点击宣传图片
+   */
+  onAdImage: function(e) {
     wx.navigateTo({
-      url: '../productDetail/productDetail'
+      url: '../productDetail/productDetail?id=' + e.currentTarget.dataset.id
+    });
+  },
+  
+  /**
+   * 点击商品
+   */
+  detailClick: function (e) {
+    wx.navigateTo({
+      url: '../productDetail/productDetail?id=' + e.currentTarget.dataset.id
     });
   },
 

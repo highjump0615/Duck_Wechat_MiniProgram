@@ -9,10 +9,14 @@
 }
 
 .list-item {
-  padding: 10px 15px;
+  padding-left: 50rpx;
+  padding-right: 30rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
   border: 1px solid #eee;
   margin-top: -1px;
   background-color: #fff;
+  line-height: 40rpx;
 }
 
 text.price1 {
@@ -108,10 +112,8 @@ button.appbutton2:hover {
 
 text.go-detail {
   color: #68bc5e;
-  position: relative;
   float: right;
-  margin-top: 17.5px;
-  margin-right: 10px;
+  font-size: 30rpx;
 }
 
 .store-item {
@@ -299,7 +301,7 @@ text.go-detail {
 
 .pending-item .address-area {
   font-size: 14px;
-  padding: 30px 20px;
+  padding: 30px 40rpx;
   background-color: #eef5ed;
 }
 
@@ -372,4 +374,73 @@ text.go-detail {
 
 .commodity-item .commodity-info {
   width: 100%
+}
+
+
+/*toast start*/ 
+.wxapp-toast-mask{   
+  opacity: 0;   
+  width: 100%;   
+  height: 100%;   
+  overflow: hidden;   
+  position: fixed;   
+  top: 0;   
+  left: 0;   
+  z-index: 888; 
+}
+
+.wxapp-toast-content-box {   
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999; 
+} 
+
+.wxapp-toast-content {
+  width: 50%;
+  padding: 20rpx;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20rpx; 
+} 
+
+.wxapp-toast-content-text {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center; 
+} 
+/*toast end*/
+
+page {
+  background: white;
+}
+
+text {
+  font-family: '宋体';
+}
+
+/* 拼团用户头像列表 */ 
+.customer {
+  padding-left: 20rpx;
+}
+.text-count {
+  float: left; 
+  line-height: 60rpx
+}
+.customer image {
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 10rpx;
+  border-radius: 50%;
+}
+
+.no-notice {
+  text-align: center;
+  margin-top: 300rpx;
+  font-size: 28rpx;
+  color: #a0a0a0;
 }

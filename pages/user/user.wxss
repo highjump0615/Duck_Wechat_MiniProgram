@@ -11,8 +11,8 @@
 }
 
 .list-item .list-img {
-  width: 25px;
-  height: 25px;
+  width: 40rpx;
+  height: 40rpx;
   display: inline-block;
   vertical-align: middle;
 }
@@ -33,7 +33,7 @@
 }
 
 .arrow .phone {
-  font-size: 14px;
+  font-size: 32rpx;
 }
 
 #address {

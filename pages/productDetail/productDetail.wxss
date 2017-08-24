@@ -169,8 +169,9 @@ image.question {
 .commoditySheet .close {
   display: inline-block;
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 0px;
+  padding: 10px;
 }
 
 .commoditySheet .control {
@@ -196,4 +197,27 @@ image.question {
 
 .appbutton2.selected {
   background-color: #287c1c !important;
+}
+
+.html-div {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.group-price {
+  width: 100%;
+  display: inline-block;
+}
+.groupbuy-desc {
+  float: left;
+}
+.groupbuy-invite {
+  float: right;
+}
+.groupbuy-invite button {
+  font-size: 26rpx;
+  line-height: 60rpx;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 10rpx;
 }

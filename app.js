@@ -11,31 +11,25 @@ App({
     var that = this;
 
     // 获取基础参数
-    var settings = wx.getStorageSync('setting');
-    if (!settings) {
-      wx.request({
-        url: config.api.baseUrl + '/system/info',//请求地址
-        data: {
-        },
-        header: {//请求头
-          "Content-Type": "applciation/json"
-        },
-        method: "GET",//get为默认方法/POST
-        success: function (res) {
-          that.setting.customerPhone = res.data.result.phone;
-          that.setting.noticeRefund = res.data.result.notice_refund;
-          that.setting.noticeGroup = res.data.result.notice_groupbuy;
+    wx.request({
+      url: config.api.baseUrl + '/system/info',//请求地址
+      data: {
+      },
+      header: {//请求头
+        "Content-Type": "applciation/json"
+      },
+      method: "GET",//get为默认方法/POST
+      success: function (res) {
+        that.setting.customerPhone = res.data.result.phone;
+        that.setting.noticeRefund = res.data.result.notice_refund;
+        that.setting.noticeGroup = res.data.result.notice_groupbuy;
+      },
+      fail: function (err) { },//请求失败
+      complete: function () { }//请求完成后执行的函数
+    });
 
-          // 保存
-          wx.setStorageSync('setting', that.setting)
-        },
-        fail: function (err) { },//请求失败
-        complete: function () { }//请求完成后执行的函数
-      })
-    }
-    else {
-      this.setting = settings;
-    }
+    //调用应用实例的方法获取全局数据
+    this.getUserInfo();
 
     // 收件人
     this.receiver = wx.getStorageSync('receiver');
@@ -61,7 +55,7 @@ App({
 
                // get the customer id
               wx.request({
-                url: 'https://hly.weifengkeji.top/public/api/v1/customer/set',//请求地址
+                url: config.api.baseUrl + '/customer/set',//请求地址
                 data: {
                   login_code: strLoginCode,
                   name: res.userInfo.nickName,
@@ -109,5 +103,20 @@ App({
     customerPhone: '010-92838022',
     noticeRefund: '包退提示',
     noticeGroup: '拼团提示'    
+  },
+
+  //自定义Toast   
+  showToast: function(text,o,count){
+    var _this = o;
+    count = parseInt(count) ? parseInt(count) : 3000;
+    _this.setData({
+      toastText:text,
+      isShowToast: true,
+    });
+    setTimeout(function () {
+      _this.setData({
+        isShowToast: false
+      });
+    },count);
   },
 })

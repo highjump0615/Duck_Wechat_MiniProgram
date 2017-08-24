@@ -1,23 +1,19 @@
 <template name="homeProduct" class="home-product">
-  <view class="product-item">
+  <view class="product-item-list" data-id="{{id}}" bindtap="detailClick">
 
     <!-- 图片 -->
-    <view class="product-image">
+    <view class="product-image-list">
       <image src="{{thumbnail}}"></image>
     </view>
     
-    <view class="product-info">
-      <view class="product-description">
+    <view class="product-info-list">
+      <view class="product-desc-list">
         {{name}}
       </view>
-      <view class="product-price">
-        <text class="price1">
-          ¥{{price}}
-        </text>
-        <text class="price2">
-          拼团价: ¥{{gb_price}}
-        </text>
-        <text class="go-detail" data-id="{{id}}" bindtap="detailClick">详情 ></text>
+      <view class="product-price-list">
+        <text class="price1">¥ {{price}}</text>
+        <text class="price2">拼团价: ¥ {{gb_price}}</text>
+        <text class="go-detail" data-id="{{id}}">详情 ></text>
       </view>
     </view>
   </view>

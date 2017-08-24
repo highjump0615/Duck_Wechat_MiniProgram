@@ -31,31 +31,38 @@
       <text class="right" style="min-width:60px;">库存: <text>{{productDetails.remain}}</text></text>
     </view>
     <view class="item" style="color: #bbb;">
-      <text class="left">七天包退, 十四天包换</text>
+      <text class="left">配送说明</text>
       <view class="right" bindtap="modalRetreat">
         <image class="question" src="../../images/question.png"></image>
       </view>
     </view>
   </view>
+
   <view class="group-area">
     <view class="info-area">
       <view class="item" style="border: none;">
-        <text class="left">火热拼团</text>
+        <text class="left">拼团说明</text>
         <view class="right" bindtap="modalFire">
           <image class="question" src="../../images/question.png"></image>
         </view>
       </view>
-      <view class="item">
-        <view class="left">
-          <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+
+      <view class="item group-price">
+        <view class="groupbuy-desc">
+          <view class="left">
+            <text class="price2">拼团价: ¥{{productDetails.gb_price}}</text>
+          </view>
+          <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
         </view>
-        <view class="left rule">规则: {{productDetails.gb_timeout}}小时内{{productDetails.gb_count}}人参与拼团即成功</view>
+        <view class="groupbuy-invite">
+          <button class="button appbutton2" bindtap="modalInvite">邀请好友</button>
+        </view>
       </view>
     </view>
 
     <!-- 拼团列表 -->
     <view class="user-area">
-      <block wx:for="{{productDetails.groupbuys}}" wx:for-item="groupbuy">
+      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy">
 
         <view class="user-item">
             <view class="user-image">
@@ -83,7 +90,9 @@
       <view class="content">商品详情</view>
     </view>
     <!-- html显示 -->
-    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    <view class="html-div">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
   </view>
 </view>
 
@@ -101,10 +110,10 @@
 </view>
 
 <!--Prepare modals-->
-<modal title="七天包退, 十四天包换" class="modal" hidden="{{modalRetreatHidden}}" no-cancel bindconfirm="modalRetreatChange" bindcancel="modalRetreatChange">
+<modal title="配送说明" class="modal" hidden="{{modalRetreatHidden}}" no-cancel bindconfirm="modalRetreatChange" bindcancel="modalRetreatChange">
   <view> {{noticeRefund}} </view>
 </modal>
-<modal title="火热拼团" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
+<modal title="拼团说明" class="modal" hidden="{{modalFireHidden}}" no-cancel bindconfirm="modalFireChange" bindcancel="modalFireChange">
   <view> {{noticeGroup}} </view>
 </modal>
 
@@ -164,8 +173,12 @@
         </button>
       </view>
     </view>
-    <button class="button appbutton2 large" bindtap="goPending">
-      下一步
-    </button>
+    
+    <form bindsubmit="goPending" report-submit="true">
+      <button form-type="submit" class="button appbutton2 large">
+        下一步
+      </button>
+    </form>
+
   </view>
 </action-sheet>

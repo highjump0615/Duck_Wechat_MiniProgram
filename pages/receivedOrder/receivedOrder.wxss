@@ -13,9 +13,42 @@
 }
 .pending-item.receivedOrder .total{
   color: #000;
+  text-align: center;
 }
 .groupBuying {
   display: block;
   line-height: 22px;
 } 
 
+
+/* 买家留言 */
+.desc {
+  display: inline-block;
+}
+.desc .title {
+  float: left;
+}
+.desc .content {
+  margin-left: 140rpx;
+}
+
+/* 自提地址区域 */
+.address-area {
+  display: inline-block;
+  width: calc(100% - 80rpx);
+}
+.view-address {
+  float: left;
+  width: calc(100% - 80rpx - 70rpx);
+}
+.view-map {
+  float: right;
+  width: 70rpx;
+  height: 120rpx;
+  text-align:center;
+}
+.view-map image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 40rpx;
+}

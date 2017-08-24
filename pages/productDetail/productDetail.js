@@ -7,6 +7,10 @@ var WxParse = require('../../lib/wxParse/wxParse.js');
 
 var app = getApp();
 
+var gnProductId;
+
+var timerGroupbuy;
+
 Page({
   /**
    * 页面的初始数据
@@ -20,18 +24,28 @@ Page({
     commodityCount: 1,
     groupBuyingHidden: true,
     showLoading: false,
+    specId: 0,
 
     // loading提示语
     loadingMessage: '',
     productDetails: [],
+    groupBuys: [],
 
     // 图片base url
     baseUrl: config.baseUrl,
-
-    // 提示
-    noticeRefund: app.setting.noticeRefund,
-    noticeGroup: app.setting.noticeGroup
   },
+  
+  /**
+   * 分享
+   */
+  onShareAppMessage: function() {
+    return {
+      title: this.data.productDetails.name,
+      desc: this.data.productDetails.name,
+      path: '/pages/productDetail/productDetail?id=' + gnProductId
+    };
+  },
+
   /*
     Called when user click question mark in 七天包退, 十四天包换 to show modal
   */
@@ -55,6 +69,17 @@ Page({
     this.setData({
       modalFireHidden: false
     })
+  },
+
+  /**
+   * 邀请好友弹窗
+   */
+  modalInvite: function() {
+    wx.showModal({
+        title: '邀请好友',
+        content: '点击小程序右上方“三个点”按钮，点击“转发”，一起邀请你的小伙伴来拼团吧。',
+        showCancel: false
+      });
   },
   /*
     Called when user click 确定 to hide modal
@@ -129,30 +154,35 @@ Page({
     Called when user click '下一步' button
   */
   goPending: function (e) {
-    if (this.data.commodityCount == 0) {
-      var that = this;
+    // 检查规格
+    // if (this.data.specId <= 0) {
+    //   wx.showModal({
+    //     title: '请选择规格',
+    //     showCancel: false
+    //   });
+
+    //   return;
+    // }
+
+    // 检查库存
+    if (this.data.commodityCount > this.data.productDetails.remain) {
       wx.showModal({
-        title: '提示',
-        content: '请插入购买数量!',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('confirm')
-          } else if (res.cancel) {
-            that.setData({
-              actionSheetHidden: !that.data.actionSheetHidden
-            })
-            console.log('cancel')
-          }
-        }
-      })
-    } else {
-      this.setData({
-        actionSheetHidden: !this.data.actionSheetHidden
-      })
-      wx.navigateTo({
-        url: '../pendingOrder/pendingOrder'
+        title: '库存不够',
+        showCancel: false
       });
+
+      return;
     }
+    
+    //
+    // 跳转到下单页面
+    //
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+    wx.navigateTo({
+      url: '../pendingOrder/pendingOrder?form=' + e.detail.formId
+    });
 
     // 设置数量
     util.prepareOrderInfo.count = this.data.commodityCount;
@@ -164,7 +194,7 @@ Page({
       dPrice = this.data.productDetails.gb_price;
     }
     
-    util.prepareOrderInfo.totalPrice = parseFloat(this.data.commodityCount * dPrice) + parseFloat(this.data.productDetails.price_deliver);
+    util.prepareOrderInfo.totalPrice = parseFloat(this.data.commodityCount * dPrice);
     util.productDetails = this.data.productDetails;
 
     console.log('go buy now -->');
@@ -179,8 +209,8 @@ Page({
   /*
   * load function
   */
-  onLoad: function () {
-    console.log('onLoad')
+  onLoad: function (option) {
+    gnProductId = option.id;
 
     // 获取当前位置
     wx.getLocation({
@@ -189,19 +219,30 @@ Page({
         app.globalData.userInfo.latitude = res.latitude;
         app.globalData.userInfo.longitude = res.longitude;
       }
-    })
+    });
 
- 
-    // get the categorylist from backend-server
-    //this.getProductbeforImages();
-    this.getProductInfo();
-    
+    this.setData({
+      noticeRefund: app.setting.noticeRefund,
+      noticeGroup: app.setting.noticeGroup
+    })
   },
+
+  onHide: function() {
+    clearTimeout(timerGroupbuy);
+  },
+
+  onUnload: function() {
+    clearTimeout(timerGroupbuy);
+  },
+
+  onShow: function() {
+    this.getProductInfo();
+  }, 
 
   //read the category list
   getProductInfo: function () {
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
-    var productUrl = config.api.baseUrl + '/product/detail/' + util.productId
+    var productUrl = config.api.baseUrl + '/product/detail/' + gnProductId
     wx.request({
       url: productUrl,//请求地址
       data: {
@@ -216,7 +257,10 @@ Page({
         console.log(res.data.result);//res.data相当于ajax里面的data,为后台返回的数据
 
         // 默认选择第一个规格
-        var specId = res.data.result.specs[0].id;
+        var specId = 0;
+        if (res.data.result.specs.length > 0) {
+          specId = res.data.result.specs[0].id;
+        }
 
         var detail = res.data.result;
         for (var i = 0; i < detail.groupbuys.length; i++) {
@@ -225,6 +269,7 @@ Page({
         
         that.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
           productDetails: detail,
+          groupBuys: detail.groupbuys,
           specId: specId,
           thumbnail: res.data.result.thumbnail,
           swiperImages: res.data.result.images,
@@ -238,7 +283,9 @@ Page({
         * 4.target为Page对象,一般为this(必填)
         * 5.imagePadding为当图片自适应是左右的单一padding(默认为0,可选)
         */
-        WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 5);
+        WxParse.wxParse('article', 'html', res.data.result.rtf_content, that, 10);
+
+        timerGroupbuy = setTimeout(that.updateTimeRemaining, 1000);
         
         console.log('productdetail->swiperimages')
         console.log(that.data.swiperImages)
@@ -246,6 +293,20 @@ Page({
       fail: function (err) { },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
+  },
+
+  updateTimeRemaining: function() {    
+    var detail = this.data.groupBuys;
+    for (var i = 0; i < detail.length; i++) {
+      detail[i].time_remain--;
+      detail[i].time_remain_formatted = util.foramtSeconds(detail[i].time_remain);
+    }
+
+    this.setData({//如果在sucess直接写this就变成了wx.request()的this了.必须为getdata函数的this,不然无法重置调用函数
+        groupBuys: detail
+    });
+
+    timerGroupbuy = setTimeout(this.updateTimeRemaining, 1000);
   },
 
   /**

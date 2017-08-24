@@ -6,6 +6,8 @@ var md5 = require('../../lib/md5.js')
 var app = getApp();
 
 var gnStoreId = 0;
+var gstrFormId;
+var gstrFormIdGroup;
 
 /**
  * 计算距离
@@ -50,7 +52,9 @@ Page({
     storeList: [],
     // 配送渠道
     channel: config.channel.delivery,
-    desc: ''
+    desc: '',
+    name: app.receiver.name,
+    phone: app.receiver.phone,
   },
   /**
    * 生命周期函数--监听页面显示
@@ -70,7 +74,8 @@ Page({
       deliveryActive: 'active',
       storeActive: '',
       storeHidden: false,
-      channel: config.channel.delivery
+      channel: config.channel.delivery,
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice) + parseFloat(this.data.productDetails.price_deliver)
     })
   },
   /*
@@ -81,7 +86,8 @@ Page({
       deliveryActive: '',
       storeActive: 'active',
       storeHidden: true,
-      channel: config.channel.self
+      channel: config.channel.self,
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice)
     })
   },
   /*
@@ -122,13 +128,19 @@ Page({
     var store = this.data.storeList[nIndex];
 
     wx.openLocation({
-      latitude: store.latitude,
-      longitude: store.longitude,
+      latitude: parseFloat(store.latitude),
+      longitude: parseFloat(store.longitude),
       scale: 12,
       name: store.name,
       address: store.address,
-      success: function() {}
-    })
+      success: function(res) {},
+      fail: function(err) {
+        wx.showModal({
+          content: err.errMsg,
+          showCancel: false
+        });
+      }
+    });
     
     // console.log(e.target.dataset.id);
     // wx.navigateTo({
@@ -138,8 +150,10 @@ Page({
   /*
   * load function
   */
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
+
+    gstrFormIdGroup = options.form;
 
     // 规格
     var strSpec = '';
@@ -165,7 +179,7 @@ Page({
       priceSum: util.prepareOrderInfo.count * dPrice, 
 
       // 价格总计
-      totalPrice: util.prepareOrderInfo.totalPrice
+      totalPrice: parseFloat(util.prepareOrderInfo.totalPrice) + parseFloat(util.productDetails.price_deliver)
     })
     
     
@@ -176,10 +190,13 @@ Page({
     console.log('<---');
 
     // get the store list
-    var storeUrl = 'https://hly.weifengkeji.top/public/api/v1/stores'
+    var storeUrl = config.api.baseUrl + '/stores';
     wx.request({
       url: storeUrl,//请求地址
-      data: {},
+      data: {
+        latitude: app.globalData.userInfo.latitude,
+        longitude: app.globalData.userInfo.longitude
+      },
       header: {//请求头
         "Content-Type": "applciation/json"
       },
@@ -243,9 +260,9 @@ Page({
     });
   },
 
-  showMakeOrderError: function() {
+  showMakeOrderError: function(msg = '') {
     wx.showModal({
-      title: '下单失败！',
+      title: '下单失败！ ' + msg,
       showCancel: false
     });
   },
@@ -255,18 +272,32 @@ Page({
   */
   submitOrder: function (e) {
     var that = this;
+    
+    gstrFormId = e.detail.formId;
 
     // 确认收件人信息
-    if (!this.data.receiver) {
-      wx.showModal({
-        title: '请输入收件人信息',
-        showCancel: false
-      });
+    if (this.data.channel == config.channel.delivery) {
+      if (!this.data.receiver) {
+        wx.showModal({
+          title: '请输入收件人信息',
+          showCancel: false
+        });
 
-      return;
+        return;
+      }
+    }
+    else {
+      if (!this.data.name || !this.data.phone) {
+        wx.showModal({
+          title: '请输入提货人信息',
+          showCancel: false
+        });
+
+        return;
+      }
     }
 
-    // this.makeOrder();
+    // this.makeOrder('1111');
     // return;
 
     // 预支付
@@ -275,8 +306,7 @@ Page({
       data: {
         product_id: util.productDetails.id,
         customer_id: app.globalData.userInfo.customerId,
-        // price: util.prepareOrderInfo.totalPrice
-        price: 0.01
+        price: this.data.totalPrice
       },
       header: {//请求头
         "Content-Type": "application/x-www-form-urlencoded"
@@ -299,6 +329,8 @@ Page({
         var nonceStr = response.nonce_str;
         var paySign = md5.hex_md5('appId='+appId+'&nonceStr='+nonceStr+'&package='+pkg+'&signType=MD5&timeStamp='+timeStamp+"&key=5UkDSKPgHQ6cpsUSwxt2lJnixzQkzQeO").toUpperCase();
 
+        var tradeNo = res.data.trade_no;
+
         wx.requestPayment({
           'appId': appId,
           'timeStamp': timeStamp,
@@ -308,9 +340,13 @@ Page({
           'paySign': paySign,
           'success':function(res){
             // 生成订单
-            that.makeOrder();
+            that.makeOrder(tradeNo);
           },
           'fail':function(res){
+            wx.showModal({
+              title: '支付失败',
+              showCancel: false
+            });
             console.log(res);
           }
         });
@@ -330,7 +366,7 @@ Page({
   /**
    * 生成订单
    */
-  makeOrder: function() {
+  makeOrder: function(tradeNo) {
 
     var that = this;
 
@@ -338,25 +374,33 @@ Page({
       customer_id: app.globalData.userInfo.customerId,
       product_id: util.productDetails.id,
       count: this.data.buyCnt,
-      // 收件人
-      name: this.data.receiver.name,
-      phone: this.data.receiver.phone,
       // 规格
       spec_id: util.prepareOrderInfo.specId,
       channel: this.data.channel,
       desc: this.data.desc,
       price: util.prepareOrderInfo.totalPrice,
+      // 商户订单号
+      trade_no: tradeNo,
+      formid: gstrFormId,
+      formid_group: gstrFormIdGroup
     };
 
     // 门店
     if (this.data.channel == config.channel.self) {
-      paramData.store_id = gnStoreId
+      paramData.store_id = gnStoreId;
+      // 收件人
+      paramData.name = this.data.name;
+      paramData.phone = this.data.phone;
     }
     else {
       // 地址
       paramData.address = this.data.receiver.address;
       paramData.area = this.data.receiver.area;
-      paramData.zipcode = this.data.receiver.zipcode;
+      paramData.zipcode = this.data.receiver.zipcode ? this.data.receiver.zipcode : '';
+
+      // 收件人
+      paramData.name = app.receiver.name;
+      paramData.phone = app.receiver.phone;
     }
 
     // 拼团
@@ -376,28 +420,25 @@ Page({
           return;
         }
 
-        // 下单成功
-        wx.showToast({
-          title: '下单成功'
-        });
+        // 成功
+        if (res.data.status == 'success') {
+          var orderId = res.data.result;
 
-        // 跳转，默认是拼团列表
-        var strUrl = '../userGroup/userGroup';
-        if (util.prepareOrderInfo.groupBuy < 0) {
-          // 门店订单
-          if (that.data.channel == config.channel.self) {
-            strUrl = '../storeOrder/storeOrder';
-          }
-          // 快递订单
-          else {
-            strUrl = '../deliveryOrder/deliveryOrder';
-          }
+          wx.showToast({
+            title: '下单成功',
+          });
+
+          setTimeout(function() {
+            // 跳转到订单详情页面
+            wx.redirectTo({
+              url: '../receivedOrder/receivedOrder?id=' + orderId
+            });
+          }, 1000);
         }
-
-        // 跳转到订单列表页面
-        wx.redirectTo({
-          url: strUrl
-        });
+        // 失败
+        else {
+          that.showMakeOrderError(res.data.message);
+        }
       },
       fail: function (err) {
         that.showMakeOrderError();
