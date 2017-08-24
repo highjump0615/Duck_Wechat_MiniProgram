@@ -36,7 +36,7 @@ swiper.swiper {
 button.scroll-button {
   border-radius: 0px;
   margin: 0px 1px;
-  padding: 5px 25px;
+  padding: 10rpx 25rpx;
   font-size: 14px;
 }
 
