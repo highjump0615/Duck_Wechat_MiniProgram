@@ -18,7 +18,15 @@
 </template>
 
 <template name="wxParseImg">
-  <image class="{{item.classStr}} wxParse-{{item.tag}}" data-from="{{item.from}}" data-src="https://hly.weifengkeji.top{{item.attr.src}}" data-idx="{{item.imgIndex}}" src="https://hly.weifengkeji.top{{item.attr.src}}" mode="aspectFit" bindload="wxParseImgLoad" mode="widthFix" style="width:{{item.width}}px;"
+  <image class="{{item.classStr}} wxParse-{{item.tag}}" 
+    data-from="{{item.from}}" 
+    data-src="{{item.attr.src}}" 
+    data-idx="{{item.imgIndex}}" 
+    src="{{item.attr.src}}" 
+    mode="aspectFit" 
+    bindload="wxParseImgLoad" 
+    mode="widthFix" 
+    style="width:{{item.width}}px;"
   />
 </template>
 
