@@ -364,7 +364,7 @@ Page({
       spec_id: util.prepareOrderInfo.specId,
       channel: this.data.channel,
       desc: this.data.desc,
-      price: util.prepareOrderInfo.totalPrice,
+      price: this.data.totalPrice,
       // 商户订单号
       trade_no: tradeNo,
       formid: gstrFormId,
