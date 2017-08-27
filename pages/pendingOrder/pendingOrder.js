@@ -53,8 +53,6 @@ Page({
     // 配送渠道
     channel: config.channel.delivery,
     desc: '',
-    name: app.receiver.name,
-    phone: app.receiver.phone,
   },
   /**
    * 生命周期函数--监听页面显示
@@ -63,7 +61,9 @@ Page({
     this.setData({
       groupBuyingHidden: !util.groupBuyMode,
       // 收件人
-      receiver: app.receiver
+      receiver: app.receiver,
+      name: app.receiver.name,
+      phone: app.receiver.phone,
     });
   },
   /*
@@ -108,17 +108,19 @@ Page({
     Called when user click radio
   */
   radioChange: function (e) {
-    var checked = e.detail.value
-    var changed = {}
+    gnStoreId = parseInt(e.detail.value);
+    
     for (var i = 0; i < this.data.storeList.length; i++) {
-      if (checked.indexOf(this.data.storeList[i].id) !== -1) {
-        changed['storeList[' + i + '].checked'] = true
-        gnStoreId = this.data.storeList[i].id;
+      if (gnStoreId === this.data.storeList[i].id) {
+        this.data.storeList[i].checked = true;
       } else {
-        changed['storeList[' + i + '].checked'] = false
+        this.data.storeList[i].checked = false;
       }
     }
-    this.setData(changed)
+
+    this.setData({
+      storeList: this.data.storeList
+    });
   },
   /*
     Called when user click map marker
