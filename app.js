@@ -52,6 +52,8 @@ App({
           wx.getUserInfo({
             success: function (res) {
               that.globalData.userInfo = res.userInfo;
+              that.globalData.userInfo.longitude = 0;
+              that.globalData.userInfo.latitude = 0;
 
                // get the customer id
               wx.request({
