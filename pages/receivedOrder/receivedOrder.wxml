@@ -106,7 +106,7 @@
     <!-- 确认收货/提货 -->
     <button class="button appbutton2" 
             bindtap="confirmReceipt" 
-            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent) || (order.channel == config.channel.self && order.status_val == config.orderStatus.init)}}">
+            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent)}}">
         确认{{labelReceive}}
     </button>
     <!-- 申请退款 -->

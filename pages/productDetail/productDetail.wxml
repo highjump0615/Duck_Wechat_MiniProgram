@@ -25,10 +25,8 @@
   </view>
   <view class="info-area">
     <view class="item">
-      <text class="left">快递运费:
-        <text style="color: #db5078; font-weight:600;">¥{{productDetails.price_deliver}}</text>
-      </text>
-      <text class="right" style="min-width:60px;">库存: <text>{{productDetails.remain}}</text></text>
+      <text class="left">仅限福州地区</text>
+      <text class="right" style="min-width:60px;">库存: {{productDetails.remain}}</text>
     </view>
     <view class="item" style="color: #bbb;">
       <text class="left">配送说明</text>
