@@ -79,7 +79,7 @@ App({
                   }
                   else {
                     wx.showModal({
-                      title: '用户识别获取失败：' + strLoginCode,
+                      content: '用户识别获取失败：' + strLoginCode,
                       showCancel: false
                     });
 

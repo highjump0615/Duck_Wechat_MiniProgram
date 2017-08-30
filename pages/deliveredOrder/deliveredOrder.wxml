@@ -65,7 +65,7 @@
   <view class="button-area">
     <view class="total">状态为: 待提货</view>
     <button class="button appbutton2" bindtap="confirmDelivery">
-        确认提货
+        门店确认
     </button>
   </view>
 </view>
