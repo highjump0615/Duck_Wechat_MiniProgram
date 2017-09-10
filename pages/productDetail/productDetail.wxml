@@ -5,7 +5,7 @@
 <view class="productDetail">
   <view class="section swiper-area">
     <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-      <block wx:for="{{swiperImages}}" wx:for-item="beforeImage">
+      <block wx:for="{{swiperImages}}" wx:for-item="beforeImage" wx:key="">
         <swiper-item>
           <image class="swiper-img" src="{{beforeImage}}"></image>
         </swiper-item>
@@ -60,7 +60,7 @@
 
     <!-- 拼团列表 -->
     <view class="user-area">
-      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy">
+      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy" wx:key="">
 
         <view class="user-item">
             <view class="user-image">
@@ -146,7 +146,7 @@
     </view>
 
     <view class="buttons">
-      <block wx:for="{{productDetails.specs}}" wx:for-item="spec">
+      <block wx:for="{{productDetails.specs}}" wx:for-item="spec" wx:key="">
           <button wx:if="{{specId == spec.id}}" data-id="{{spec.id}}" class="button appbutton2 selected">
             {{spec.name}}
           </button>
