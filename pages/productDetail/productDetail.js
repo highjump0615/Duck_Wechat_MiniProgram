@@ -206,12 +206,20 @@ Page({
   hideLoading() {
     this.setData({ showLoading: false, loadingMessage: '' });
   },
+
+  setLocation:function() {
+
+  },
   /*
   * load function
   */
   onLoad: function (option) {
     gnProductId = option.id;
 
+    app.getSystemData(this.loadPage);
+  },
+
+  loadPage: function() {
     // 获取当前位置
     wx.getLocation({
       type: 'wgs84',
@@ -242,7 +250,7 @@ Page({
   },
 
   onShow: function() {
-    this.getProductInfo();
+    app.getSystemData(this.getProductInfo);
   }, 
 
   //read the category list
