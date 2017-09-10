@@ -5,7 +5,7 @@
 <view class="productDetail">
   <view class="section swiper-area">
     <swiper indicator-color="Rgba(100,100,100,0.5)" indicator-active-color="#fff" class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-      <block wx:for="{{swiperImages}}" wx:for-item="beforeImage">
+      <block wx:for="{{swiperImages}}" wx:for-item="beforeImage" wx:key="">
         <swiper-item>
           <image class="swiper-img" src="{{beforeImage}}"></image>
         </swiper-item>
@@ -25,10 +25,8 @@
   </view>
   <view class="info-area">
     <view class="item">
-      <text class="left">快递运费:
-        <text style="color: #db5078; font-weight:600;">¥{{productDetails.price_deliver}}</text>
-      </text>
-      <text class="right" style="min-width:60px;">库存: <text>{{productDetails.remain}}</text></text>
+      <text class="left">仅限福州地区</text>
+      <text class="right" style="min-width:60px;">库存: {{productDetails.remain}}</text>
     </view>
     <view class="item" style="color: #bbb;">
       <text class="left">配送说明</text>
@@ -62,7 +60,7 @@
 
     <!-- 拼团列表 -->
     <view class="user-area">
-      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy">
+      <block wx:for="{{groupBuys}}" wx:for-item="groupbuy" wx:key="">
 
         <view class="user-item">
             <view class="user-image">
@@ -148,7 +146,7 @@
     </view>
 
     <view class="buttons">
-      <block wx:for="{{productDetails.specs}}" wx:for-item="spec">
+      <block wx:for="{{productDetails.specs}}" wx:for-item="spec" wx:key="">
           <button wx:if="{{specId == spec.id}}" data-id="{{spec.id}}" class="button appbutton2 selected">
             {{spec.name}}
           </button>

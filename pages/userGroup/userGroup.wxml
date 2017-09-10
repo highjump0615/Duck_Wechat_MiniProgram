@@ -4,7 +4,7 @@
 <import src="../templates/orderitem.wxml" />
 
 <view wx:if="{{orders.length > 0}}">
-<block wx:for="{{orders}}" wx:for-item="order">
+<block wx:for="{{orders}}" wx:for-item="order" wx:key="">
   <view class="store-item">
     <template is="orderitem" data="{{...order, config}}"></template>
   </view>

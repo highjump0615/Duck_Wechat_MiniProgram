@@ -15,9 +15,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  loadPage: function () {
     console.log('onLoad')
-    // get the categorylist from backend-server
  
     var that = this;
 
@@ -44,6 +43,10 @@ Page({
 
     // get the category
     this.getCategory();
+  },
+
+  onLoad: function() {
+    app.getSystemData(this.loadPage);
   },
 
   getCategory: function () {//read the category list

@@ -206,12 +206,20 @@ Page({
   hideLoading() {
     this.setData({ showLoading: false, loadingMessage: '' });
   },
+
+  setLocation:function() {
+
+  },
   /*
   * load function
   */
   onLoad: function (option) {
     gnProductId = option.id;
 
+    app.getSystemData(this.loadPage);
+  },
+
+  loadPage: function() {
     // 获取当前位置
     wx.getLocation({
       type: 'wgs84',
@@ -224,7 +232,13 @@ Page({
     this.setData({
       noticeRefund: app.setting.noticeRefund,
       noticeGroup: app.setting.noticeGroup
-    })
+    });
+
+    // 提示
+    wx.showModal({
+      content: '参加已发起的团或分享出去更快成单哦', 
+      showCancel: false
+    });
   },
 
   onHide: function() {
@@ -236,7 +250,7 @@ Page({
   },
 
   onShow: function() {
-    this.getProductInfo();
+    app.getSystemData(this.getProductInfo);
   }, 
 
   //read the category list

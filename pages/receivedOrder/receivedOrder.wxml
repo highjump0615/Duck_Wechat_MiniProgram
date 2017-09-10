@@ -101,22 +101,25 @@
       <text wx:if="{{order.status_val == config.orderStatus.refunded}}">
         （将退款至微信零钱，请查收）
       </text>
+      <text wx:elif="{{order.status_val == config.orderStatus.init && order.channel == config.channel.self}}">
+        （请24小时后前往自提）
+      </text>
     </view>
 
     <!-- 确认收货/提货 -->
     <button class="button appbutton2" 
             bindtap="confirmReceipt" 
-            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent) || (order.channel == config.channel.self && order.status_val == config.orderStatus.init)}}">
+            wx:if="{{(order.channel == config.channel.delivery && order.status_val == config.orderStatus.sent)}}">
         确认{{labelReceive}}
     </button>
     <!-- 申请退款 -->
-    <button class="button appbutton2" 
-            bindtap="requestRefund" 
+    <button class="button appbutton2 disabled" 
             wx:elif="{{order.status_val == config.orderStatus.received}}">
         申请退款
     </button>
     <button class="button appbutton2 disabled" wx:else>
       <view wx:if="{{order.status_val >= config.orderStatus.refund_requested}}">返回</view>
+      <view wx:elif="{{order.channel == config.channel.self}}">门店确认</view>
       <view wx:else>确认{{labelReceive}}</view>
     </button>
   </view>
