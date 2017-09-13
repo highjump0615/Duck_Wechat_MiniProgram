@@ -257,14 +257,14 @@ Page({
 
   showPayemntError: function() {
     wx.showModal({
-      title: '无法开启支付接口！',
+      content: '无法开启支付接口！',
       showCancel: false
     });
   },
 
   showMakeOrderError: function(msg = '') {
     wx.showModal({
-      title: '下单失败！ ' + msg,
+      content: '下单失败！ ' + msg,
       showCancel: false
     });
   },
@@ -281,7 +281,7 @@ Page({
     if (this.data.channel == config.channel.delivery) {
       if (!this.data.receiver) {
         wx.showModal({
-          title: '请输入收件人信息',
+          content: '请输入收件人信息',
           showCancel: false
         });
 
@@ -291,7 +291,7 @@ Page({
     else {
       if (!this.data.name || !this.data.phone) {
         wx.showModal({
-          title: '请输入提货人信息',
+          content: '请输入提货人信息',
           showCancel: false
         });
 
@@ -418,7 +418,7 @@ Page({
       success: function (res) {
         if (res.statusCode > 200) {
           // 失败
-          that.showMakeOrderError();
+          that.showMakeOrderError('' + res.statusCode);
           return;
         }
 
@@ -443,7 +443,7 @@ Page({
         }
       },
       fail: function (err) {
-        that.showMakeOrderError();
+        that.showMakeOrderError(err.errMsg);
       },//请求失败
       complete: function () { }//请求完成后执行的函数
     })
