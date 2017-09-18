@@ -8,6 +8,7 @@ var WxParse = require('../../lib/wxParse/wxParse.js');
 var app = getApp();
 
 var gnProductId;
+var gbIsLoading = false;
 
 var timerGroupbuy;
 
@@ -216,6 +217,7 @@ Page({
   onLoad: function (option) {
     gnProductId = option.id;
 
+    gbIsLoading = true;
     app.getSystemData(this.loadPage);
   },
 
@@ -239,6 +241,10 @@ Page({
       content: '参加已发起的团或分享出去更快成单哦', 
       showCancel: false
     });
+
+    this.getProductInfo();
+
+    gbIsLoading = false;
   },
 
   onHide: function() {
@@ -250,7 +256,9 @@ Page({
   },
 
   onShow: function() {
-    app.getSystemData(this.getProductInfo);
+    if (!gbIsLoading) {
+      app.getSystemData(this.getProductInfo);
+    }
   }, 
 
   //read the category list
