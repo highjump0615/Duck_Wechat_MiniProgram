@@ -265,6 +265,16 @@ Page({
   getProductInfo: function () {
     var that = this;   // 这个地方非常重要，重置data{}里数据时候setData方法的this应为以及函数的this, 如果在下方的sucess直接写this就变成了wx.request()的this了
     var productUrl = config.api.baseUrl + '/product/detail/' + gnProductId
+
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        content: '无法获取用户信息',
+        showCancel: false
+      });
+
+      return;
+    }
+
     wx.request({
       url: productUrl,//请求地址
       data: {

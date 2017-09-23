@@ -160,6 +160,22 @@ Page({
 
     gstrFormIdGroup = options.form;
 
+    // 检查数据
+    if (!util.productDetails.specs) {
+      wx.showModal({
+        content: '无法获取产品信息，请稍后再试',
+        showCancel: false,
+        success: function(res) {
+          // 返回到详情页
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      });
+
+      return;
+    }
+
     // 规格
     var strSpec = '';
     for (var i = 0; i < util.productDetails.specs.length; i++) {
