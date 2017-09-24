@@ -9,6 +9,9 @@ var gnStoreId = 0;
 var gstrFormId;
 var gstrFormIdGroup;
 
+var gnChannelSet;
+var gdPriceSet;
+
 /**
  * 计算距离
  * @param {*} lat1 
@@ -157,6 +160,22 @@ Page({
 
     gstrFormIdGroup = options.form;
 
+    // 检查数据
+    if (!util.productDetails.specs) {
+      wx.showModal({
+        content: '无法获取产品信息，请稍后再试',
+        showCancel: false,
+        success: function(res) {
+          // 返回到详情页
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      });
+
+      return;
+    }
+
     // 规格
     var strSpec = '';
     for (var i = 0; i < util.productDetails.specs.length; i++) {
@@ -257,14 +276,14 @@ Page({
 
   showPayemntError: function() {
     wx.showModal({
-      title: '无法开启支付接口！',
+      content: '无法开启支付接口！',
       showCancel: false
     });
   },
 
   showMakeOrderError: function(msg = '') {
     wx.showModal({
-      title: '下单失败！ ' + msg,
+      content: '下单失败！ ' + msg,
       showCancel: false
     });
   },
@@ -281,7 +300,7 @@ Page({
     if (this.data.channel == config.channel.delivery) {
       if (!this.data.receiver) {
         wx.showModal({
-          title: '请输入收件人信息',
+          content: '请输入收件人信息',
           showCancel: false
         });
 
@@ -291,13 +310,17 @@ Page({
     else {
       if (!this.data.name || !this.data.phone) {
         wx.showModal({
-          title: '请输入提货人信息',
+          content: '请输入提货人信息',
           showCancel: false
         });
 
         return;
       }
     }
+
+    // 将需要的参数固定下来
+    gnChannelSet = this.data.channel;
+    gdPriceSet = this.data.totalPrice;
 
     // this.makeOrder('1111');
     // return;
@@ -308,7 +331,7 @@ Page({
       data: {
         product_id: util.productDetails.id,
         customer_id: app.globalData.userInfo.customerId,
-        price: this.data.totalPrice
+        price: gdPriceSet
       },
       header: {//请求头
         "Content-Type": "application/x-www-form-urlencoded"
@@ -378,9 +401,9 @@ Page({
       count: this.data.buyCnt,
       // 规格
       spec_id: util.prepareOrderInfo.specId,
-      channel: this.data.channel,
+      channel: gnChannelSet,
       desc: this.data.desc,
-      price: this.data.totalPrice,
+      price: gdPriceSet,
       // 商户订单号
       trade_no: tradeNo,
       formid: gstrFormId,
@@ -388,7 +411,7 @@ Page({
     };
 
     // 门店
-    if (this.data.channel == config.channel.self) {
+    if (gnChannelSet == config.channel.self) {
       paramData.store_id = gnStoreId;
       // 收件人
       paramData.name = this.data.name;
@@ -418,7 +441,7 @@ Page({
       success: function (res) {
         if (res.statusCode > 200) {
           // 失败
-          that.showMakeOrderError();
+          that.showMakeOrderError('' + res.statusCode);
           return;
         }
 
@@ -443,7 +466,7 @@ Page({
         }
       },
       fail: function (err) {
-        that.showMakeOrderError();
+        that.showMakeOrderError(err.errMsg);
       },//请求失败
       complete: function () { }//请求完成后执行的函数
     })

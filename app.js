@@ -7,11 +7,17 @@ App({
    */
   getSystemData: function(main) {
     var that = this;
-    
+
     // 已获取，直接跳转下一步
     if (this.setting) {
       main();
       return;
+    }
+
+    // 检查缓存数据
+    var setting = wx.getStorageSync('sysSetting');
+    if (setting) {
+      this.setting = setting;
     }
 
     // 获取基础参数
@@ -30,11 +36,14 @@ App({
           noticeGroup: res.data.result.notice_groupbuy
         };
 
-        //调用应用实例的方法获取全局数据
-        that.getUserInfo(main);
+        // 保存到缓存
+        wx.setStorageSync('sysSetting', that.setting);
       },
       fail: function (err) { },//请求失败
-      complete: function () { }//请求完成后执行的函数
+      complete: function () {        
+        //调用应用实例的方法获取全局数据
+        that.getUserInfo(main);
+       }//请求完成后执行的函数
     });
   },
 
@@ -54,6 +63,13 @@ App({
   getUserInfo: function (main) {
     var that = this;
 
+    // 先检查app的user数据
+    if (this.globalData.userInfo) {
+      main();
+      return;
+    }
+
+    // 下一步检查缓存的user数据
     var userInfo = wx.getStorageSync('userInfo');
     if (userInfo) {
       this.globalData.userInfo = userInfo;
